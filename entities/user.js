@@ -6,7 +6,7 @@ make sure correct Post, get, put delete etc
 */
 
 module.exports = {
-  buildMakeUser ({ Id, hashMachine }) {
+  buildMakeUser ({ Id, hashMachine, MyError }) {
    return function ({
      email,
      firstName,
@@ -23,19 +23,19 @@ module.exports = {
      disabled = false,
    } = {}) {
      if (!Id.isValidId(_id)) {
-       throw new Error('User must have a valid id.');
+       throw new MyError('User must have a valid id.');
      }
      if (sessionID != null && !Id.isValidId(sessionID)) {
-       throw new Error('User must have a valid sessionID.');
+       throw new MyError('User must have a valid sessionID.');
      }
      checkName(firstName, 'first');
      checkName(lastName, 'last');
 
-     if (email && typeof email == 'string' && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-       throw new Error('User must have a valid email.');
+     if (!email || typeof email !== 'string' || !(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) ) {
+       throw new MyError('User must have a valid email.');
      }
      if (!hashMachine.isValidHash(hash)) {
-       throw new Error('User must have a valid hash.');
+       throw new MyError('User must have a valid hash.');
      }
 
      return Object.freeze({
@@ -107,13 +107,13 @@ module.exports = {
 
      function checkName (name, messageWord) {
        if (!name) {
-         throw new Error(`User must have a ${messageWord} name.`);
+         throw new MyError(`User must have a ${messageWord} name.`);
        }
        if (typeof name != 'string') {
-         throw new Error(`User's ${messageWord} name must be a string.`);
+         throw new MyError(`User's ${messageWord} name must be a string.`);
        }
        if (name.length < 2) {
-         throw new Error(`User's ${messageWord} name must be longer than 2 characters.`);
+         throw new MyError(`User's ${messageWord} name must be longer than 2 characters.`);
        }
      }
 

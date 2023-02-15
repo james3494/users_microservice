@@ -3,9 +3,13 @@ const { makeUser } = require('../entities');
 // maybe make more filters to allow for greater than, less than, not equal etc
 
 module.exports = {
-   makeFilterUsers ({ usersDb }) {
+   makeFilterUsers ({ usersDb, MyError }) {
     return async function ({ ...filters }) {
       let regexFilters = {};
+      if (typeof filters != 'object') {
+        new MyError("Filters must be an object.");
+      }
+
       Object.entries(filters).forEach(([key, val]) => regexFilters[key] = convertToRegex(val));
       const usersFromDb = await usersDb.filterByRegex(regexFilters);
 
