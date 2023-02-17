@@ -5,10 +5,10 @@ const { registerUser, loginUser, logoutUser, getCurrentUser, disableUser } = req
 
 api.use(express.json());
 
-api.post( '/api/user/register', makeExpressCallback(registerUser) );
-api.post( '/api/user/login', makeExpressCallback(loginUser) );
-api.post( '/api/user/logout', makeExpressCallback(logoutUser) );
-api.post( '/api/user/get', makeExpressCallback(getCurrentUser) );
-api.post( '/api/user/delete', makeExpressCallback(disableUser) );
+api.post( `${process.env.PATH_ROUTE}/register`, makeExpressCallback(registerUser) );
+api.post( `${process.env.PATH_ROUTE}/login`, makeExpressCallback(loginUser) );
+api.post( `${process.env.PATH_ROUTE}/logout`, makeExpressCallback(logoutUser) );
+api.post( `${process.env.PATH_ROUTE}/get`, makeExpressCallback(getCurrentUser) );
+api.post( `${process.env.PATH_ROUTE}/delete`, makeExpressCallback(disableUser) );
 
 module.exports = api;

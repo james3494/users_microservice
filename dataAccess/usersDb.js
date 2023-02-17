@@ -4,7 +4,6 @@ module.exports = {
 
     return Object.freeze({
       findByEmail,
-      findBySessionId,
       findById,
       filterByRegex,
       insert,
@@ -24,11 +23,11 @@ module.exports = {
 
     async function insert ({ _id, ...info }) {
       const db = await makeDb();
-      await db
+      const result = await db
         .collection('users')
         .insertOne({ _id, ...info });
 
-      return { _id, ...info };
+      return result.ops[0];
     }
     async function update ({ _id, ...info }) {
       const db = await makeDb();
@@ -62,16 +61,6 @@ module.exports = {
       }
       return found;
     }
-    async function findBySessionId ({ sessionID }) {
-      if (!sessionID) return null;
 
-      const db = await makeDb();
-      const result = await db.collection('users').find({ sessionID });
-      const found = await result.toArray();
-      if (found.length === 0) {
-        return null;
-      }
-      return found[0];
-    }
   }
 } ;

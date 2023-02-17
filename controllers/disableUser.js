@@ -4,16 +4,17 @@ module.exports = {
     return async function (httpRequest) {
      try {
        const { ...userInfo } = httpRequest.body;
-       const user = await disableUser({ ...userInfo });
+       const success = await disableUser({ ...userInfo });
+       
        return {
          headers: {
            'Content-Type': 'application/json',
          },
          statusCode: 201,
-         body: { ...user }
+         body: { ...success }
        };
      } catch (e) {
-       catchError(e);
+       return catchError(e);
      }
     };
   }

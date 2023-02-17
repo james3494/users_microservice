@@ -4,13 +4,13 @@ const { makeLogUserIn } = require('./logUserIn');
 const { makeLogUserOut } = require('./logUserOut');
 const { makeFilterUsers } = require('./filterUsers');
 const { usersDb } = require('../dataAccess');
-const MyError = Error;
+const { throwError } = require('errorHandling');
 
-const addUser = makeAddUser({ usersDb, MyError });
-const disableUser = makeDisableUser({ usersDb, MyError });
-const logUserIn = makeLogUserIn({ usersDb, MyError });
-const logUserOut = makeLogUserOut({ usersDb, MyError });
-const filterUsers = makeFilterUsers({ usersDb, MyError });
+const addUser = makeAddUser({ usersDb, throwError });
+const disableUser = makeDisableUser({ usersDb, throwError });
+const logUserIn = makeLogUserIn({ usersDb, throwError });
+const logUserOut = makeLogUserOut({ usersDb, throwError });
+const filterUsers = makeFilterUsers({ usersDb, throwError });
 
 const userService = Object.freeze({
   addUser,

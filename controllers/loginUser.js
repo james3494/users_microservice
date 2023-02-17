@@ -1,21 +1,21 @@
 
 module.exports = {
-  buildLoginUser ({ logUserIn, catchError }) {
+  buildLoginUser ({ logUserIn, catchError, generateToken }) {
     return async function (httpRequest) {
      try {
-       const { ...userInfo } = httpRequest.body;
-       const loggedIn = await logUserIn({ sessionID : httpRequest.cookies?.sessionID, ...userInfo });
-
-       let headers = { 'Content-Type' : 'application/json' };
-       if( loggedIn.sessionID ) headers['Set-Cookie'] = `sessionID=${loggedIn.sessionID}`;
+       const { email, password, stayLoggedIn } = httpRequest.body;
+       const loggedIn = await logUserIn({ email, password, stayLoggedIn });
+       const jwtToken = generateToken(loggedIn);
 
        return {
-         headers,
+         headers: {
+           'Content-Type' : 'application/json' ,
+         },
          statusCode: 201,
-         body: { ...loggedIn }
+         body: { jwtToken }
        };
      } catch (e) {
-       catchError(e);
+       return catchError(e);
      }
     };
   }

@@ -1,12 +1,11 @@
 /* TODO
-add token to prevent access from illegal people / add security measure eg admin accessible endpoints etc
+add token to prevent access from illegal people / add security measure eg admin accessible endpoints etc. - use an api gateway for authentication
 edit users endpoint - seperate endpoint for make admin, disable etc?
-error handling / codes - custom error with status. also allows us to pass safe essages onto the browser
 make sure correct Post, get, put delete etc
 */
 
 module.exports = {
-  buildMakeUser ({ Id, hashMachine, MyError }) {
+  buildMakeUser ({ Id, hashMachine, throwError }) {
    return function ({
      email,
      firstName,
@@ -17,66 +16,65 @@ module.exports = {
      salt = hashMachine.genSalt(),
      hash = hashMachine.hash(hashMachine.getDefaultPassword(), salt),
      groups = [],
-     sessionID = null,
+     isLoggedIn = false,
      lastLogin = null,
      stayLoggedIn = false,
      disabled = false,
    } = {}) {
+
      if (!Id.isValidId(_id)) {
-       throw new MyError('User must have a valid id.');
-     }
-     if (sessionID != null && !Id.isValidId(sessionID)) {
-       throw new MyError('User must have a valid sessionID.');
+       throwError('User must have a valid id.', 400);
      }
      checkName(firstName, 'first');
      checkName(lastName, 'last');
 
      if (!email || typeof email !== 'string' || !(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) ) {
-       throw new MyError('User must have a valid email.');
+       throwError('User must have a valid email.', 400);
      }
      if (!hashMachine.isValidHash(hash)) {
-       throw new MyError('User must have a valid hash.');
+       throwError('User must have a valid hash.', 400);
      }
 
      return Object.freeze({
        getFirstName: () => firstName,
        getLastName: () => lastName,
+       setFirstName: (newFirstName) => {
+         checkName(firstName, 'first');
+         firstName = newFirstName;
+         modifiedOn = Date.now();
+       },
+       setLastName: (newLastName) => {
+         checkName(lastName, 'first');
+         lastName = newLastName;
+         modifiedOn = Date.now();
+       },
        getEmail: () => email,
        getCreatedOn: () => createdOn,
        getId: () => _id,
-       getSessionId: () => sessionID,
        getModifiedOn: () => modifiedOn,
        getLastLogin: () => lastLogin,
        getStayLoggedIn: () => stayLoggedIn,
        getHash: () => hash,
        getSalt: () => salt,
        getGroups: () => groups,
-       makeAdmin: () => {
-         if (groups.indexOf('admin') < 0) {
-           groups.push('admin');
-           modifiedOn = Date.now();
-         }
-       },
-       unmakeAdmin: () => {
-         const adminIndex = groups.indexOf('admin');
-         if (adminIndex >= 0) {
-           groups.splice(adminIndex, 1);
-           modifiedOn = Date.now();
-         }
-       },
+       makeAdmin,
+       unmakeAdmin,
+       makeSuperAdmin,
+       unmakeSuperAdmin,
        isDisabled: () => disabled,
        disable: () => {
          logout();
          disabled = true;
        },
        undisable: () => disabled = false,
-       isLoggedin: () => sessionID != null,
+       isLoggedin: () => isLoggedIn,
        login: (wantToStayLoggedIn) => {
-         sessionID = Id.makeId();
+         isLoggedIn = true;
          lastLogin = Date.now();
          stayLoggedIn = wantToStayLoggedIn;
        },
        resetPassword: (password) => {
+         // first check password passes checks here
          hash = hashMachine.hash(password, salt);
        },
        isCorrectPassword: (password) => {
@@ -90,30 +88,62 @@ module.exports = {
          email,
          createdOn,
          _id,
-         sessionID,
          modifiedOn,
          groups,
          lastLogin,
          disabled,
          stayLoggedIn,
+         isLoggedIn,
          hash,
          salt
        }),
      });
      function logout() {
-       sessionID = null;
+       isLoggedIn = false;
        stayLoggedIn = false;
      }
 
      function checkName (name, messageWord) {
        if (!name) {
-         throw new MyError(`User must have a ${messageWord} name.`);
+         throwError(`User must have a ${messageWord} name.`, 400);
        }
        if (typeof name != 'string') {
-         throw new MyError(`User's ${messageWord} name must be a string.`);
+         throwError(`User's ${messageWord} name must be a string.`, 400);
        }
        if (name.length < 2) {
-         throw new MyError(`User's ${messageWord} name must be longer than 2 characters.`);
+         throwError(`User's ${messageWord} name must be longer than 2 characters.`, 400);
+       }
+     }
+
+     function makeAdmin() {
+       if (groups.indexOf('admin') < 0) {
+         groups.push('admin');
+         modifiedOn = Date.now();
+       }
+     }
+
+     function unmakeAdmin() {
+       unmakeSuperAdmin();
+       const adminIndex = groups.indexOf('admin');
+       if (adminIndex >= 0) {
+         groups.splice(adminIndex, 1);
+         modifiedOn = Date.now();
+       }
+     }
+
+     function makeSuperAdmin() {
+       makeAdmin();
+       if (groups.indexOf('superAdmin') < 0) {
+         groups.push('superAdmin');
+         modifiedOn = Date.now();
+       }
+     }
+
+     function unmakeSuperAdmin() {
+       const superAdminIndex = groups.indexOf('superAdmin');
+       if (superAdminIndex >= 0) {
+         groups.splice(superAdminIndex, 1);
+         modifiedOn = Date.now();
        }
      }
 

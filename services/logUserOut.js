@@ -1,20 +1,20 @@
 const { makeUser } = require('../entities');
 
 module.exports = {
-   makeLogUserOut ({ usersDb, MyError }) {
-    return async function ({ sessionID }) {
+   makeLogUserOut ({ usersDb, throwError }) {
+    return async function ({ _id }) {
 
-      const exists = await usersDb.findBySessionId({ sessionID });
+      const exists = await usersDb.findById({ _id });
 
       if (!exists) {
-        throw new MyError ("No user logged in");
+        throwError ("No user logged in", 400);
       }
 
       const user = makeUser( exists );
       user.logout();
       const updated = await usersDb.update( user.getAll() );
-      if (!updated) throw new MyError("Error logging in user")
-      else return user.getAll();
+      if (!updated) throwError("Error logging in user", 500)
+      else return { ...user.getAll(), ...updated };
     };
   }
 };

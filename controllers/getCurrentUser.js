@@ -13,7 +13,7 @@ module.exports = {
          body: users.length == 1 ? users[0] : null
        };
      } catch (e) {
-       catchError(e);
+       return catchError(e);
      }
     };
   }

@@ -14,7 +14,7 @@ module.exports = {
          body: { ...registered }
        };
      } catch (e) {
-       catchError(e);
+       return catchError(e);
      }
     };
   }
