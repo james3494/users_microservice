@@ -1,8 +1,7 @@
 
-const { addUser, logUserIn, logUserOut, filterUsers, disableUser } = require('../services');
+const { addUser, logUserIn, filterUsers, disableUser } = require('../services');
 const { buildRegisterUser } = require('./registerUser');
 const { buildLoginUser } = require('./loginUser');
-const { buildLogoutUser } = require('./logoutUser');
 const { buildGetCurrentUser } = require('./getCurrentUser');
 const { buildDisableUser } = require('./disableUser');
 const { catchError, throwError } = require('errorHandling');
@@ -23,7 +22,6 @@ async function decodeToken(httpRequest) {
 const userController = Object.freeze({
   registerUser : buildRegisterUser({ addUser, catchError }),
   loginUser: buildLoginUser({ logUserIn, catchError, generateToken }),
-  logoutUser: buildLogoutUser({ logUserOut, catchError, decodeToken }),
   getCurrentUser: buildGetCurrentUser({ filterUsers, catchError }),
   disableUser: buildDisableUser({ disableUser, catchError, decodeToken }),
 });

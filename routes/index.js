@@ -7,7 +7,6 @@ api.use(express.json());
 
 api.post( `${process.env.PATH_ROUTE}/register`, makeExpressCallback(registerUser) );
 api.post( `${process.env.PATH_ROUTE}/login`, makeExpressCallback(loginUser) );
-api.post( `${process.env.PATH_ROUTE}/logout`, makeExpressCallback(logoutUser) );
 api.post( `${process.env.PATH_ROUTE}/get`, makeExpressCallback(getCurrentUser) );
 api.post( `${process.env.PATH_ROUTE}/delete`, makeExpressCallback(disableUser) );
 
