@@ -23,11 +23,10 @@ module.exports = {
 
       if (userFromDb.isCorrectPassword(password)) {
         userFromDb.login();
-        return { ...userFromDb.getAll() };
 
-        // const updated = await usersDb.update( userFromDb.getAll() );
-        // if (!updated) throwError("Error logging in user", 500)
-        // else return { ...userFromDb.getAll(), ...updated };
+        const updated = await usersDb.update( userFromDb.getAll() );
+        if (!updated) throwError("Error logging in user", 500)
+        else return { ...userFromDb.getAll(), ...updated };
 
       } else throwError("Password incorrect", 401)
 
