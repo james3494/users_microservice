@@ -1,5 +1,6 @@
 /* TODO
 add token to prevent access from illegal people / add security measure eg admin accessible endpoints etc. - use an api gateway for authentication
+set refresh time for jwt token
 edit users endpoint - seperate endpoint for make admin, disable etc?
 make sure correct Post, get, put delete etc
 */
