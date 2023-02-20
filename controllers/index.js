@@ -13,7 +13,6 @@ async function decodeToken(httpRequest) {
   const token = httpRequest.headers.Authorization.split(' ')[1];
   if (!token) return null;
   else return await jwt.verify(jwtToken, process.env.TOKEN_PUBLIC, (err, decoded) => {
-    console.log(decoded);
     if (err) {
       console.log(err);
       throwError(err.message, 401);

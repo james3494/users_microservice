@@ -3,8 +3,8 @@ module.exports = {
   buildLoginUser ({ logUserIn, catchError, generateToken }) {
     return async function (httpRequest) {
      try {
-       const { email, password, stayLoggedIn } = httpRequest.body;
-       const loggedIn = await logUserIn({ email, password, stayLoggedIn });
+       const { email, password } = httpRequest.body;
+       const loggedIn = await logUserIn({ email, password });
        const jwtToken = generateToken(loggedIn);
 
        return {

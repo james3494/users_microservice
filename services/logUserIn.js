@@ -3,7 +3,7 @@ const { makeUser } = require('../entities');
 
 module.exports = {
    makeLogUserIn ({ usersDb, throwError }) {
-    return async function ({ email, password, stayLoggedIn }) {
+    return async function ({ email, password }) {
 
       if (!email) {
         throwError ("You must supply an email", 400);
@@ -15,16 +15,12 @@ module.exports = {
       if (!exists)
         throwError("No user found with that email", 400)
 
-      const userFromDb = makeUser(exists);
-      if (userFromDb.isLoggedin())
-        throwError("User already logged in elsewhere", 403)
-
       if (userFromDb.isDisabled() == true)
         throwError("User has been disabled", 403)
 
 
       if (userFromDb.isCorrectPassword(password)) {
-        userFromDb.login(stayLoggedIn);
+        userFromDb.login();
 
         const updated = await usersDb.update( userFromDb.getAll() );
         if (!updated) throwError("Error logging in user", 500)

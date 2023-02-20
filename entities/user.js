@@ -17,9 +17,7 @@ module.exports = {
      salt = hashMachine.genSalt(),
      hash = hashMachine.hash(hashMachine.getDefaultPassword(), salt),
      groups = [],
-     isLoggedIn = false,
      lastLogin = null,
-     stayLoggedIn = false,
      disabled = false,
    } = {}) {
 
@@ -54,7 +52,6 @@ module.exports = {
        getId: () => _id,
        getModifiedOn: () => modifiedOn,
        getLastLogin: () => lastLogin,
-       getStayLoggedIn: () => stayLoggedIn,
        getHash: () => hash,
        getSalt: () => salt,
        getGroups: () => groups,
@@ -63,16 +60,10 @@ module.exports = {
        makeSuperAdmin,
        unmakeSuperAdmin,
        isDisabled: () => disabled,
-       disable: () => {
-         logout();
-         disabled = true;
-       },
+       disable: () => disabled = true,
        undisable: () => disabled = false,
-       isLoggedin: () => isLoggedIn,
-       login: (wantToStayLoggedIn) => {
-         isLoggedIn = true;
+       login: () => {
          lastLogin = Date.now();
-         stayLoggedIn = wantToStayLoggedIn;
        },
        resetPassword: (password) => {
          // first check password passes checks here
@@ -81,7 +72,6 @@ module.exports = {
        isCorrectPassword: (password) => {
          return hashMachine.hash(password, salt) == hash;
        },
-       logout,
        // the following is what will be inserted into the database. should match the inputs for this entity
        getAll: () => ({
          firstName,
@@ -93,16 +83,10 @@ module.exports = {
          groups,
          lastLogin,
          disabled,
-         stayLoggedIn,
-         isLoggedIn,
          hash,
          salt
        }),
      });
-     function logout() {
-       isLoggedIn = false;
-       stayLoggedIn = false;
-     }
 
      function checkName (name, messageWord) {
        if (!name) {

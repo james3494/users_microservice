@@ -14,7 +14,7 @@ module.exports = {
       user.logout();
       const updated = await usersDb.update( user.getAll() );
       if (!updated) throwError("Error logging in user", 500)
-      else return { ...user.getAll(), ...updated };
+      else return { loggedOut: true };
     };
   }
 };
