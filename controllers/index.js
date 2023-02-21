@@ -1,5 +1,5 @@
 
-const { addUser, logUserIn, disableUser } = require('../services');
+const { addUser, logUserIn, editUser } = require('../services');
 const { buildRegisterUser } = require('./registerUser');
 const { buildLoginUser } = require('./loginUser');
 const { buildDisableUser } = require('./disableUser');
@@ -10,7 +10,7 @@ const { generateToken } = require('authentication')({ privateKeyPath: "./private
 const userController = Object.freeze({
   registerUser : buildRegisterUser({ addUser, catchError }),
   loginUser: buildLoginUser({ logUserIn, catchError, generateToken }),
-  disableUser: buildDisableUser({ disableUser, catchError }),
+  disableUser: buildDisableUser({ editUser, catchError }),
 });
 
 module.exports = { ...userController };

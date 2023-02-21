@@ -90,9 +90,6 @@ module.exports = {
         getGroups: () => groups,
         getFriends: () => friends,
         isDisabled: () => disabled,
-        login: () => {
-         lastLogin = Date.now();
-        },
         resetPassword: (password) => {
          if(!hashMachine.isValidPassword(password)) {
            throwError('Please choose a valid password.', 400);

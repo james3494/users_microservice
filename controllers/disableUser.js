@@ -1,11 +1,14 @@
 
 module.exports = {
-  buildDisableUser ({ disableUser, catchError }) {
+  buildDisableUser ({ editUser, catchError }) {
     return async function (httpRequest) {
      try {
        const { ...userInfo } = httpRequest.body;
-       const success = await disableUser({ ...userInfo });
-       
+       const success = await editUser({
+          _id: userInfo._id,
+          disabled: true 
+        });
+
        return {
          headers: {
            'Content-Type': 'application/json',
