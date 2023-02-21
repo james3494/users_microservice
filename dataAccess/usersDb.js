@@ -5,7 +5,7 @@ module.exports = {
     return Object.freeze({
       findByEmail,
       findById,
-      filterByRegex,
+      andStyleFilter,
       insert,
       remove,
       update
@@ -52,7 +52,8 @@ module.exports = {
       }
       return found[0];
     }
-    async function filterByRegex ({ ...fields }) {
+    // this is an 'AND' style search. It can take regex in the filters
+    async function andStyleFilter ({ ...fields }) {
       const db = await makeDb();
       const result = await db.collection('users').find({ ...fields });
       const found = await result.toArray();

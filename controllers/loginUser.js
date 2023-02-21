@@ -1,18 +1,18 @@
 
 module.exports = {
-  buildLoginUser ({ logUserIn, catchError, generateToken }) {
+  buildLoginUser ({ logUserIn, catchError, generateToken, decodeToken }) {
     return async function (httpRequest) {
      try {
        const { email, password } = httpRequest.body;
        const loggedIn = await logUserIn({ email, password });
-       const jwtToken = generateToken(loggedIn);
+       const jwt = generateToken(loggedIn);
 
        return {
          headers: {
            'Content-Type' : 'application/json' ,
          },
          statusCode: 201,
-         body: { jwtToken }
+         body: { jwt }
        };
      } catch (e) {
        return catchError(e);

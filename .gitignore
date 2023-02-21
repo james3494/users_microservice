@@ -2,3 +2,5 @@
 .env.development
 .env.test
 node_modules/*
+private.pem
+public.pem

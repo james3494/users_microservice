@@ -14,6 +14,13 @@ const hashMachine = Object.freeze({
   isValidHash(hash) {
     // this should be improved
     return hash.length > 0;
+  },
+  isValidSalt(salt) {
+    // this should be improved
+    return hash.length > 0;
+  },
+  isValidPassword(password) {    
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/.test(val);
   }
 });
 

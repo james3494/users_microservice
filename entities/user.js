@@ -5,74 +5,105 @@ make sure correct Post, get, put delete etc
 */
 
 module.exports = {
-  buildMakeUser ({ Id, hashMachine, throwError }) {
-   return function ({
-     email,
-     firstName,
-     lastName,
-     createdOn = Date.now(),
-     _id = Id.makeId(),
-     modifiedOn = Date.now(),
-     salt = hashMachine.genSalt(),
-     hash = hashMachine.hash(hashMachine.getDefaultPassword(), salt),
-     groups = [],
-     lastLogin = null,
-     disabled = false,
-   } = {}) {
+  buildMakeUser ({ Id, hashMachine, throwError, isValidEmail, isValidName }) {
+    return function ({
+      email,
+      firstName,
+      lastName,
+      createdOn = Date.now(),
+      _id = Id.makeId(),
+      modifiedOn = Date.now(),
+      salt = hashMachine.genSalt(),
+      hash = hashMachine.hash(hashMachine.getDefaultPassword(), salt),
+      groups = [],
+      friends = [],
+      lastLogin = null,
+      disabled = false,
+    } = {}) {
 
-     if (!Id.isValidId(_id)) {
+      if (!Id.isValidId(_id)) {
        throwError('User must have a valid id.', 400);
-     }
-     checkName(firstName, 'first');
-     checkName(lastName, 'last');
-
-     if (!email || typeof email !== 'string' || !(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) ) {
+      }
+      if (!isValidEmail(email)) {
        throwError('User must have a valid email.', 400);
-     }
-     if (!hashMachine.isValidHash(hash)) {
+      }
+      if (isValidName(lastName)) {
+       throwError('User must have a valid lastName.', 400);
+      }
+      if (isValidName(firstName)) {
+       throwError('User must have a valid firstName.', 400);
+      }
+      if (!hashMachine.isValidHash(hash)) {
        throwError('User must have a valid hash.', 400);
-     }
+      }
+      if (!hashMachine.isValidSalt(salt)) {
+       throwError('User must have a valid salt.', 400);
+      }
+      if (typeof disabled !== 'boolean') {
+        throwError('Disabled must be a boolean.', 400);
+      }
+      if (typeof modifiedOn !== 'number' || modifiedOn > Date.now()) {
+        throwError('modifiedOn must be a number and in the past.', 400);
+      }
+      if (typeof createdOn !== 'number' || createdOn > Date.now()) {
+        throwError('createdOn must be a number and in the past.', 400);
+      }
+      if ((lastLogin !== null) && (typeof lastLogin !== 'number' || lastLogin > Date.now())) {
+        throwError('lastLogin must be null or a number and in the past.', 400);
+      }
+      // groups check
+      if (typeof groups !== 'object' || !Array.isArray(groups)) {
+       throwError('User groups must be an array.', 400);
+      }
+      if ((new Set(groups)).size !== groups.length) {
+       throwError('User must not have repeated groups.', 400);
+      }
+      const allowedGroups = ['admin', 'superAdmin'];
+      if (!groups.every(group => allowedGroups.includes(group))) {
+       throwError('All user groups must be one of [' + allowedGroups.reduce((string, group) => string + ' ' + group) + ']', 400);
+      }
+      if (groups.includes('superAdmin') && !groups.includes('admin')) {
+       throwError('All superAdmins must also be admins.', 400);
+      }
 
-     return Object.freeze({
-       getFirstName: () => firstName,
-       getLastName: () => lastName,
-       setFirstName: (newFirstName) => {
-         checkName(firstName, 'first');
-         firstName = newFirstName;
-         modifiedOn = Date.now();
-       },
-       setLastName: (newLastName) => {
-         checkName(lastName, 'first');
-         lastName = newLastName;
-         modifiedOn = Date.now();
-       },
-       getEmail: () => email,
-       getCreatedOn: () => createdOn,
-       getId: () => _id,
-       getModifiedOn: () => modifiedOn,
-       getLastLogin: () => lastLogin,
-       getHash: () => hash,
-       getSalt: () => salt,
-       getGroups: () => groups,
-       makeAdmin,
-       unmakeAdmin,
-       makeSuperAdmin,
-       unmakeSuperAdmin,
-       isDisabled: () => disabled,
-       disable: () => disabled = true,
-       undisable: () => disabled = false,
-       login: () => {
+      // friends check
+      if (typeof friends !== 'object' || !Array.isArray(friends)) {
+       throwError('User friends must be an array.', 400);
+      }
+      if ((new Set(friends)).size !== friends.length) {
+       throwError('User must not have repeated friends.', 400);
+      }
+      if (!friends.every(friend => Id.isValidId(friend))) {
+       throwError('All user friends must have a valid ID.', 400);
+      }
+
+      return Object.freeze({
+        getFirstName: () => firstName,
+        getLastName: () => lastName,
+        getEmail: () => email,
+        getCreatedOn: () => createdOn,
+        getId: () => _id,
+        getModifiedOn: () => modifiedOn,
+        getLastLogin: () => lastLogin,
+        getHash: () => hash,
+        getSalt: () => salt,
+        getGroups: () => groups,
+        getFriends: () => friends,
+        isDisabled: () => disabled,
+        login: () => {
          lastLogin = Date.now();
-       },
-       resetPassword: (password) => {
-         // first check password passes checks here
+        },
+        resetPassword: (password) => {
+         if(!hashMachine.isValidPassword(password)) {
+           throwError('Please choose a valid password.', 400);
+         }
          hash = hashMachine.hash(password, salt);
-       },
-       isCorrectPassword: (password) => {
+        },
+        isCorrectPassword: (password) => {
          return hashMachine.hash(password, salt) == hash;
-       },
-       // the following is what will be inserted into the database. should match the inputs for this entity
-       getAll: () => ({
+        },
+        // the following is what will be inserted into the database. should match the inputs for this entity
+        getAll: () => ({
          firstName,
          lastName,
          email,
@@ -82,55 +113,11 @@ module.exports = {
          groups,
          lastLogin,
          disabled,
+         friends,
          hash,
          salt
-       }),
-     });
-
-     function checkName (name, messageWord) {
-       if (!name) {
-         throwError(`User must have a ${messageWord} name.`, 400);
-       }
-       if (typeof name != 'string') {
-         throwError(`User's ${messageWord} name must be a string.`, 400);
-       }
-       if (name.length < 2) {
-         throwError(`User's ${messageWord} name must be longer than 2 characters.`, 400);
-       }
-     }
-
-     function makeAdmin() {
-       if (groups.indexOf('admin') < 0) {
-         groups.push('admin');
-         modifiedOn = Date.now();
-       }
-     }
-
-     function unmakeAdmin() {
-       unmakeSuperAdmin();
-       const adminIndex = groups.indexOf('admin');
-       if (adminIndex >= 0) {
-         groups.splice(adminIndex, 1);
-         modifiedOn = Date.now();
-       }
-     }
-
-     function makeSuperAdmin() {
-       makeAdmin();
-       if (groups.indexOf('superAdmin') < 0) {
-         groups.push('superAdmin');
-         modifiedOn = Date.now();
-       }
-     }
-
-     function unmakeSuperAdmin() {
-       const superAdminIndex = groups.indexOf('superAdmin');
-       if (superAdminIndex >= 0) {
-         groups.splice(superAdminIndex, 1);
-         modifiedOn = Date.now();
-       }
-     }
-
-   };
- }
+        }),
+      });
+    }
+  }
 };

@@ -1,5 +1,6 @@
 const { makeUser } = require('../entities');
 
+// currently this is an "AND" type filter
 // maybe make more filters to allow for greater than, less than, not equal etc
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
       }
 
       Object.entries(filters).forEach(([key, val]) => regexFilters[key] = convertToRegex(val));
-      const usersFromDb = await usersDb.filterByRegex(regexFilters);
+      const usersFromDb = await usersDb.andStyleFilter(regexFilters);
 
       let usersRtn = [];
       // do try catch statements in a loop to prevent it dying if there's one corrupt user

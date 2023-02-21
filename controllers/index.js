@@ -5,8 +5,7 @@ const { buildLoginUser } = require('./loginUser');
 const { buildDisableUser } = require('./disableUser');
 
 const { catchError, throwError } = require('errorHandling');
-const { generateToken } = require('authentication');
-
+const { generateToken } = require('authentication')({ privateKeyPath: "./private.pem", privateKeyPassword: '12345' });
 
 const userController = Object.freeze({
   registerUser : buildRegisterUser({ addUser, catchError }),
