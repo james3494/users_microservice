@@ -5,11 +5,9 @@ module.exports = {
      try {
        const { ...userInfo } = httpRequest.body;
        const registered = await addUser({ ...userInfo });
+       
        return {
-         headers: {
-           'Content-Type': 'application/json',
-           'Last-Modified': new Date(registered.modifiedOn).toUTCString()
-         },
+         headers: { 'Content-Type': 'application/json' },
          statusCode: 201,
          body: { ...registered }
        };

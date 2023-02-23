@@ -6,6 +6,7 @@ module.exports = {
       findByEmail,
       findById,
       andStyleFilter,
+      orStyleFilter,
       insert,
       remove,
       update
@@ -55,11 +56,20 @@ module.exports = {
     // this is an 'AND' style search. It can take regex in the filters
     async function andStyleFilter ({ ...fields }) {
       const db = await makeDb();
+
       const result = await db.collection('users').find({ ...fields });
       const found = await result.toArray();
-      if (found.length === 0) {
-        return null;
-      }
+      return found;
+    }
+    // this is an 'OR' style search. It can take regex in the filters
+    async function orStyleFilter ({ ...fields }) {
+      const db = await makeDb();
+      let queryArray=[];
+      Object.entries(fields).forEach(([key, value]) => {
+        queryArray.push({ [key]: value });
+      })
+      const result = await db.collection('users').find({ $or: queryArray });
+      const found = await result.toArray();
       return found;
     }
 

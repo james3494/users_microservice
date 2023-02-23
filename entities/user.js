@@ -1,7 +1,8 @@
 /* TODO
 set refresh time for jwt token
-edit users endpoint - seperate endpoint for make admin, disable etc?
+Create the following controllers (all use the editUser service) : admin / unmakeadmin, superadmin, undisable, add friend 
 make sure correct Post, get, put delete etc
+ensure the microservices are only accessible from the gateway, not the wider internet
 */
 
 module.exports = {
@@ -27,10 +28,10 @@ module.exports = {
       if (!isValidEmail(email)) {
        throwError('User must have a valid email.', 400);
       }
-      if (isValidName(lastName)) {
+      if (!isValidName(lastName)) {
        throwError('User must have a valid lastName.', 400);
       }
-      if (isValidName(firstName)) {
+      if (!isValidName(firstName)) {
        throwError('User must have a valid firstName.', 400);
       }
       if (!hashMachine.isValidHash(hash)) {

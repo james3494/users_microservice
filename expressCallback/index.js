@@ -2,6 +2,7 @@
 module.exports = {
   makeExpressCallback (controller) {
     return (req, res) => {
+
       const httpRequest = {
         body: req.body,
         query: req.query,
@@ -13,7 +14,7 @@ module.exports = {
           'Content-Type': req.get('Content-Type'),
           Referer: req.get('referer'),
           'User-Agent': req.get('User-Agent'),
-          Authorization: req.get('Authorization'),
+          user: req.get('user')
         }
       };
 

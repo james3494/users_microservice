@@ -17,10 +17,10 @@ const hashMachine = Object.freeze({
   },
   isValidSalt(salt) {
     // this should be improved
-    return hash.length > 0;
+    return salt.length > 0;
   },
-  isValidPassword(password) {    
-    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/.test(val);
+  isValidPassword(password) {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/.test(password);
   }
 });
 

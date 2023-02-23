@@ -25,7 +25,7 @@ module.exports = {
       });
       if (!updated) throwError("Error editing user", 500)
 
-      return { disabled: !!updated };
+      return { ...updated };
     };
   }
 } ;
