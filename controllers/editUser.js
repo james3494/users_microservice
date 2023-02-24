@@ -1,12 +1,12 @@
-// todo - resend the jwt token because the payload may have changed
 
 module.exports = {
-  buildEditUser ({ editUser, catchError, throwError, getUserFromReq }) {
+  buildEditUser ({ editUser, catchError, throwError, getLoggedIn }) {
     return async function (httpRequest) {
      try {
-       const { _id, firstName, lastName } = httpRequest.body;
+       const { firstName, lastName } = httpRequest.body;
+       const { _id } = httpRequest.params;
 
-       const reqFrom = getUserFromReq(httpRequest);
+       const reqFrom = getLoggedIn(httpRequest);
        if (!reqFrom) {
          throwError("You must be logged in to edit your user.", 403);
        }

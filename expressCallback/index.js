@@ -2,7 +2,6 @@
 module.exports = {
   makeExpressCallback (controller) {
     return (req, res) => {
-
       const httpRequest = {
         body: req.body,
         query: req.query,
@@ -10,6 +9,7 @@ module.exports = {
         ip: req.ip,
         method: req.method,
         path: req.path,
+        cookies: req.cookies,
         headers: {
           'Content-Type': req.get('Content-Type'),
           Referer: req.get('referer'),
@@ -20,9 +20,12 @@ module.exports = {
 
       controller(httpRequest)
         .then(httpResponse => {
-          if (httpResponse.headers) {
+          if (httpResponse.headers)
             res.set(httpResponse.headers);
-          }
+          // 
+          // if (httpResponse.setCookies)
+          //   httpResponse.setCookies(res);
+
           res.type('json');
           res.status(httpResponse.statusCode).send(httpResponse.body);
         })

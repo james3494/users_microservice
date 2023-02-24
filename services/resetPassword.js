@@ -22,7 +22,7 @@ module.exports = {
           hash: user.getHash(),
         });
         if (!updated) throwError("Error resetting password.", 500)
-        else return { ...updated };
+        else return true;
 
       } else throwError("Old password incorrect.", 401)
 

@@ -28,7 +28,7 @@ module.exports = {
         .collection('users')
         .insertOne({ _id, ...info });
 
-      return result.ops[0];
+      return result.insertedId;
     }
     async function update ({ _id, ...info }) {
       const db = await makeDb();

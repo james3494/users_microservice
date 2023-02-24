@@ -4,12 +4,12 @@ module.exports = {
     return async function (httpRequest) {
      try {
        const { ...userInfo } = httpRequest.body;
-       const registered = await addUser({ ...userInfo });
-       
+       const insertedId = await addUser({ ...userInfo });
+
        return {
          headers: { 'Content-Type': 'application/json' },
          statusCode: 201,
-         body: { ...registered }
+         body: { insertedId }
        };
      } catch (e) {
        return catchError(e);

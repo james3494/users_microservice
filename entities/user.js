@@ -1,7 +1,6 @@
 /* TODO
 set refresh time for jwt token
-Create the following controllers (all use the editUser service) : admin / unmakeadmin, superadmin, undisable, add friend 
-make sure correct Post, get, put delete etc
+Create the following controllers (all use the editUser service) : admin / unmakeadmin, superadmin, undisable, add friend
 ensure the microservices are only accessible from the gateway, not the wider internet
 */
 

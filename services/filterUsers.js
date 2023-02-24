@@ -1,7 +1,7 @@
 const { makeUser } = require('../entities');
 
-// currently this is an "AND" type filter
 // maybe make more filters to allow for greater than, less than, not equal etc
+// allow for a combination of ands and ors.
 
 module.exports = {
    makeFilterUsers ({ usersDb, throwError }) {

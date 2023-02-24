@@ -1,18 +1,19 @@
 
 module.exports = {
-  buildResetPassword ({ resetPassword, catchError, getUserFromReq, throwError }) {
+  buildResetPassword ({ resetPassword, catchError, getLoggedIn, throwError }) {
     return async function (httpRequest) {
      try {
-       const reqFrom = getUserFromReq(httpRequest);
+       const { oldPassword, newPassword } = httpRequest.body;
+       const { _id } = httpRequest.params;
+       const reqFrom = getLoggedIn(httpRequest);
        if (!reqFrom) {
          throwError("You must be logged in to reset your password.", 403);
        }
-       if (reqFrom._id !== userInfo._id) {
+       if (reqFrom._id !== _id) {
          throwError("You cannot reset the password of another user.", 403);
        }
 
-       const { _id, oldPassword, newPassword } = httpRequest.body;
-       const success = await resetPassword({
+       await resetPassword({
           _id,
           oldPassword,
           newPassword
@@ -20,8 +21,7 @@ module.exports = {
 
        return {
          headers: { 'Content-Type': 'application/json' },
-         statusCode: 201,
-         body: { ...success }
+         statusCode: 201
        };
      } catch (e) {
        return catchError(e);
