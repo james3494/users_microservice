@@ -1,33 +1,29 @@
 // TODO: make refresh token use different secret, and encode less information
 
-const { addUser, logUserIn, editUser, resetPassword, filterUsers } = require('../services');
-const { buildRegisterUser } = require('./registerUser');
-const { buildLoginUser } = require('./loginUser');
-const { buildDisableUser } = require('./disableUser');
-const { buildResetPassword } = require('./resetPassword');
-const { buildEditUser } = require('./editUser');
-const { buildUserSearch } = require('./userSearch');
-// const { buildRefreshToken } = require('./refreshToken');
+const { addUser, validateUser, editUser, resetPassword, filterUsers } = require('../services');
+const { buildRegisterUser } = require('./postUsers');
+const { buildLoginUser } = require('./postSessions');
+const { buildDisableUser } = require('./putDisabled');
+const { buildResetPassword } = require('./putPassword');
+const { buildEditUser } = require('./putUsers');
+const { buildUserSearch } = require('./getUsers');
+const { buildEditAdminRights } = require('./putAdmin');
 
 const { catchError, throwError } = require('errorHandling');
-const { generateToken, getLoggedIn } = require('authentication')({ privateKeyPath: "./private.pem", privateKeyPassword: '12345',   expiresIn: '7d' });
-// const refreshAuth = require('authentication')({
-//   privateKeyPath: "./private.pem",
-//   publicKeyPath: "./public.pem",
-//   privateKeyPassword: '12345',
-//   expiresIn: '7d'
-// });
-// const [generateRefreshToken, decodeRefreshToken] = [refreshAuth.generateToken, refreshAuth.decodeToken];
+
+const getLoggedIn = (httpRequest) => {
+  const token = httpRequest.headers.Authorization.split(' ')[1];
+  return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+}
 
 const userController = Object.freeze({
-  registerUser : buildRegisterUser({ addUser, catchError }),
-  disableUser: buildDisableUser({ editUser, catchError, getLoggedIn, throwError }),
-  userSearch: buildUserSearch({ filterUsers, catchError }),
-  editUser: buildEditUser({ editUser, catchError, getLoggedIn, throwError }),
-  resetPassword: buildResetPassword({ resetPassword, catchError, getLoggedIn, throwError }),
-  loginUser: buildLoginUser({ logUserIn, catchError }),
-  // loginUser: buildLoginUser({ logUserIn, catchError, generateToken, generateRefreshToken }),
-  // refreshToken: buildRefreshToken({ filterUsers, catchError, getLoggedIn, throwError, generateToken, decodeRefreshToken }),
+  postUsers : buildRegisterUser({ addUser, catchError }),
+  putDisabled: buildDisableUser({ editUser, catchError, throwError, getLoggedIn }),
+  getUsers: buildUserSearch({ filterUsers, catchError }),
+  putUsers: buildEditUser({ editUser, catchError, throwError, getLoggedIn }),
+  putPassword: buildResetPassword({ resetPassword, catchError, throwError, getLoggedIn }),
+  postSessions: buildLoginUser({ validateUser, catchError }),
+  putAdmin: buildEditAdminRights({ editUser, catchError, throwError, getLoggedIn }),
 });
 
 module.exports = { ...userController };

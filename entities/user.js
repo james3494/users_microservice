@@ -1,7 +1,9 @@
 /* TODO
 set refresh time for jwt token
-Create the following controllers (all use the editUser service) : admin / unmakeadmin, superadmin, undisable, add friend
-ensure the microservices are only accessible from the gateway, not the wider internet
+Create add / remove friend functionality.
+change admin to an object from n array
+testing
+do we want to create some specific services for eg disable user / admin?
 */
 
 module.exports = {
@@ -17,7 +19,6 @@ module.exports = {
       hash = hashMachine.hash(hashMachine.getDefaultPassword(), salt),
       groups = [],
       friends = [],
-      lastLogin = null,
       disabled = false,
     } = {}) {
 
@@ -48,9 +49,6 @@ module.exports = {
       if (typeof createdOn !== 'number' || createdOn > Date.now()) {
         throwError('createdOn must be a number and in the past.', 400);
       }
-      if ((lastLogin !== null) && (typeof lastLogin !== 'number' || lastLogin > Date.now())) {
-        throwError('lastLogin must be null or a number and in the past.', 400);
-      }
       // groups check
       if (typeof groups !== 'object' || !Array.isArray(groups)) {
        throwError('User groups must be an array.', 400);
@@ -58,13 +56,11 @@ module.exports = {
       if ((new Set(groups)).size !== groups.length) {
        throwError('User must not have repeated groups.', 400);
       }
-      const allowedGroups = ['admin', 'superAdmin'];
+      const allowedGroups = ['usersAdmin', 'huntedAdmin', 'superAdmin'];
       if (!groups.every(group => allowedGroups.includes(group))) {
        throwError('All user groups must be one of [' + allowedGroups.reduce((string, group) => string + ' ' + group) + ']', 400);
       }
-      if (groups.includes('superAdmin') && !groups.includes('admin')) {
-       throwError('All superAdmins must also be admins.', 400);
-      }
+
 
       // friends check
       if (typeof friends !== 'object' || !Array.isArray(friends)) {
@@ -84,7 +80,6 @@ module.exports = {
         getCreatedOn: () => createdOn,
         getId: () => _id,
         getModifiedOn: () => modifiedOn,
-        getLastLogin: () => lastLogin,
         getHash: () => hash,
         getSalt: () => salt,
         getGroups: () => groups,
@@ -108,7 +103,6 @@ module.exports = {
          _id,
          modifiedOn,
          groups,
-         lastLogin,
          disabled,
          friends,
          hash,

@@ -16,13 +16,11 @@ module.exports = {
 
       if (user.isCorrectPassword(oldPassword)) {
         user.resetPassword(newPassword);
-        const updated = await usersDb.update({
+        return await usersDb.update({
           _id: user.getId(),
           modifiedOn: Date.now(),
           hash: user.getHash(),
         });
-        if (!updated) throwError("Error resetting password.", 500)
-        else return true;
 
       } else throwError("Old password incorrect.", 401)
 

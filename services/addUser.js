@@ -10,7 +10,7 @@ module.exports = {
       }
       if (userInfo.password) user.resetPassword(userInfo.password);
 
-      return usersDb.insert({
+      return await usersDb.insert({
         ... user.getAll()
       });
     };

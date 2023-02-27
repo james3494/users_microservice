@@ -4,7 +4,7 @@ module.exports = {
     return async function (httpRequest) {
      try {
        const { ...userInfo } = httpRequest.body;
-       const insertedId = await addUser({ ...userInfo });
+       const { insertedId } = await addUser({ ...userInfo });
 
        return {
          headers: { 'Content-Type': 'application/json' },

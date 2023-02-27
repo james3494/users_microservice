@@ -2,7 +2,7 @@
 const { makeUser } = require('../entities');
 
 module.exports = {
-   makeLogUserIn ({ usersDb, throwError }) {
+   makeValidateUser ({ usersDb, throwError }) {
     return async function ({ email, password }) {
 
       if (!email) {
@@ -22,13 +22,10 @@ module.exports = {
 
 
       if (userFromDb.isCorrectPassword(password)) {
-        const updated = await usersDb.update({
-          _id: userFromDb.getId(),
-          lastLogin: Date.now()
-        });
-        if (!updated) throwError("Error logging in user", 500)
-        else return { ...userFromDb.getAll(), ...updated };
-
+        return {
+          success: true,
+          user: userFromDb.getAll()
+        };
       } else throwError("Password incorrect", 401)
 
     };

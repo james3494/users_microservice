@@ -5,16 +5,16 @@ module.exports = {
      try {
        const { firstName, lastName } = httpRequest.body;
        const { _id } = httpRequest.params;
+       const loggedIn = getLoggedIn(httpRequest);
 
-       const reqFrom = getLoggedIn(httpRequest);
-       if (!reqFrom) {
+       if (!loggedIn) {
          throwError("You must be logged in to edit your user.", 403);
        }
-       if (reqFrom._id !== _id && !reqFrom.groups.includes('admin')) {
+       if (loggedIn._id !== _id && !loggedIn.groups?.includes('usersAdmin') && !loggedIn.groups?.includes('superAdmin')) {
          throwError("You must be an admin to edit other users.", 403);
        }
        // at the moment only fields to edit are firstname and lastname
-       const success = await editUser({
+       const { modifiedCount } = await editUser({
          _id,
          ...(firstName ? { firstName } : {}),
          ...(lastName ? { lastName } : {}),
@@ -23,7 +23,7 @@ module.exports = {
        return {
          headers: { 'Content-Type': 'application/json' },
          statusCode: 201,
-         body: { ...success }
+         body: { modifiedCount, success: true }
        };
      } catch (e) {
        return catchError(e);

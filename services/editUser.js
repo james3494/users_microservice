@@ -14,7 +14,7 @@ module.exports = {
 
       const toEdit = makeUser({ ...user, ...userInfo });
 
-      const updated = await usersDb.update({
+      return await usersDb.update({
         _id: toEdit.getId(),
         disabled: toEdit.isDisabled(),
         lastName: toEdit.getLastName(),
@@ -23,9 +23,6 @@ module.exports = {
         friends: toEdit.getFriends(),
         modifiedOn: Date.now(),
       });
-      if (!updated) throwError("Error editing user", 500)
-
-      return { ...updated };
     };
   }
 } ;
