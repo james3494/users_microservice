@@ -1,5 +1,5 @@
 const { makeUser } = require('../entities');
-
+// to do: clean usersInfo so we don't accidentally set undefined stuff?
 module.exports = {
   makeEditUser ({ usersDb, throwError }) {
     return async function ({ ...userInfo }) {

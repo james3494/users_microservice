@@ -1,9 +1,6 @@
 /* TODO
-set refresh time for jwt token
 Create add / remove friend functionality.
-change admin to an object from n array
 testing
-do we want to create some specific services for eg disable user / admin?
 */
 
 module.exports = {

@@ -27,7 +27,7 @@ module.exports = {
            }
          }
        }
-       const filtered = await filterUsers(filterObj);
+       let filtered = await filterUsers(filterObj);
 
        if (_id) {
          filtered = filtered[0];

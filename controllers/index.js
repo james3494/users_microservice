@@ -1,6 +1,5 @@
-// TODO: make refresh token use different secret, and encode less information
 
-const { addUser, validateUser, editUser, resetPassword, filterUsers } = require('../services');
+const { addUser, validateUser, editUser, resetPassword, filterUsers, editAdminPermissions } = require('../services');
 const { buildRegisterUser } = require('./postUsers');
 const { buildLoginUser } = require('./postSessions');
 const { buildDisableUser } = require('./putDisabled');
@@ -23,7 +22,7 @@ const userController = Object.freeze({
   putUsers: buildEditUser({ editUser, catchError, throwError, getLoggedIn }),
   putPassword: buildResetPassword({ resetPassword, catchError, throwError, getLoggedIn }),
   postSessions: buildLoginUser({ validateUser, catchError }),
-  putAdmin: buildEditAdminRights({ editUser, catchError, throwError, getLoggedIn }),
+  putAdmin: buildEditAdminRights({ editAdminPermissions, catchError, throwError, getLoggedIn }),
 });
 
 module.exports = { ...userController };

@@ -1,6 +1,6 @@
 // todo: finish this (work out ow to actually post things) - switch to an object for groups?
 module.exports = {
-  buildEditAdminRights ({ editUser, catchError, throwError, getLoggedIn }) {
+  buildEditAdminRights ({ editAdminPermissions, catchError, throwError, getLoggedIn }) {
     return async function (httpRequest) {
      try {
        const { _id } = httpRequest.params;
@@ -20,9 +20,11 @@ module.exports = {
          throwError("You must be a superadmin to edit superadmin rights of a user.", 403);
        }
 
-       const { modifiedCount } = await editUser({
+       const { modifiedCount } = await editAdminPermissions({
           _id,
-
+          superAdmin,
+          usersAdmin,
+          huntedAdmin
         });
 
        return {
