@@ -9,7 +9,7 @@ function isValidEmail(email) {
   return email && typeof email === 'string' && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
 }
 function isValidName(name) {
-  return name && typeof name === 'string' && /^[a-z ,.'-]{0,30}$/i.test(name);
+  return name && typeof name === 'string' && /^[a-zA-Z ,.'-]{0,30}$/i.test(name);
 }
 
 const makeUser = buildMakeUser({ Id, hashMachine, throwError, isValidEmail, isValidName });

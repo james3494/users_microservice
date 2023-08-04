@@ -13,7 +13,7 @@ module.exports = {
       }
       const exists = await usersDb.findByEmail({ email });
       if (!exists)
-        throwError("No user found with that email", 400)
+        throwError("No user found with that email", 401)
 
       const userFromDb = makeUser(exists);
 

@@ -1,6 +1,8 @@
 
 const crypto = require('crypto');
 
+// TODO: password checker
+
 const hashMachine = Object.freeze({
   getDefaultPassword() {
     return crypto.randomBytes(24).toString('base64');
@@ -20,7 +22,8 @@ const hashMachine = Object.freeze({
     return salt.length > 0;
   },
   isValidPassword(password) {
-    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/.test(password);
+    return /^[a-zA-Z\d]{8,16}$/.test(password);
+    // return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/.test(password);
   }
 });
 
