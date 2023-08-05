@@ -1,7 +1,6 @@
 
 const crypto = require('crypto');
 
-// TODO: password checker
 
 const hashMachine = Object.freeze({
   getDefaultPassword() {

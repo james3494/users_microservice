@@ -25,9 +25,9 @@ module.exports = {
               res.set(httpResponse.headers);
 
             res.type('json');
-            res.status(httpResponse.statusCode).send(httpResponse.body);
+            res.status(httpResponse.status).send(httpResponse.body);
           })
-          .catch(() => res.status(500).send({ error: 'An unknown error occurred.' }));
+          .catch(() => res.status(500).send({ error: 'An unhandled error occurred.' }));
       };
     }
   }

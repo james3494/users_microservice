@@ -1,0 +1,9 @@
+ - rewrite errors to return informative and standardised messages
+ - create a 'getFullUser' endpoint which is accessible to admins
+ - write tests!
+ - write documentation in order to clear up exactly what I'm after.
+ - salt and hash validation in /entities/hashMachine.js
+ - way of sharing validation between front and back end
+ - rename post sessions to auth
+ - add / remove friend functionality
+ - delete user functionality? (would be useful for testing)
