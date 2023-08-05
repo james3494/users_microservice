@@ -4,12 +4,12 @@ module.exports = {
   makeEditUser ({ usersDb, throwError }) {
     return async function ({ ...userInfo }) {
       if (!userInfo._id) {
-        throwError('You must supply a user id to edit a user.', 400);
+        throwError('You must supply a user id to edit a user.', "user-no-id-supplied", 400);
       }
 
       const user = await usersDb.findById({ _id: userInfo._id });
       if (!user) {
-        throwError("No user found to edit.", 400);
+        throwError("No user found to edit.", "user-not-found", 404, "No user found with the supplied _id");
       }
 
       const toEdit = makeUser({ ...user, ...userInfo });

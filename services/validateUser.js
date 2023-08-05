@@ -13,12 +13,12 @@ module.exports = {
       }
       const exists = await usersDb.findByEmail({ email });
       if (!exists)
-        throwError("No user found with that email", 401)
+        throwError("No user found with that email", "user-not-found", 404)
 
       const userFromDb = makeUser(exists);
 
       if (userFromDb.isDisabled() == true)
-        throwError("User has been disabled", 403)
+        throwError("User has been disabled", "user-is-disabled", 403, "User has been set as disabled, only admins can undisable a user")
 
 
       if (userFromDb.isCorrectPassword(password)) {
@@ -26,7 +26,7 @@ module.exports = {
           success: true,
           user: userFromDb.getAll()
         };
-      } else throwError("Password incorrect", 401)
+      } else throwError("Email or password incorrect", "user-auth-credentials-incorrect", 401, "An incorrect password was supplied")
 
     };
   }

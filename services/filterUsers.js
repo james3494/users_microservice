@@ -7,7 +7,7 @@ module.exports = {
     return async function ({ ...filters }) {
 
       if (typeof filters !== 'object') {
-        throwError("Filters must be an object.", 400);
+        throwError("Invalid filters.", "user-invalid-filter-object", 400, "The filters parameter must be an object");
       }
 
       const usersFromDb = await usersDb.customFind(filters);

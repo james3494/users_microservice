@@ -4,12 +4,12 @@ module.exports = {
   makeEditAdminPermissions ({ editUser, usersDb, throwError }) {
     return async function ({ _id, ...adminChanges }) {
       if (!_id) {
-        throwError('You must supply a user id to edit a user.', 400);
+        throwError('You must supply a user id to edit a user.', "user-no-id-supplied", 400);
       }
 
       const userInfo = await usersDb.findById({ _id });
       if (!userInfo) {
-        throwError("No user found to edit.", 400);
+        throwError("No user found to edit.", 404, "user-not-found", "No user found with the supplied _id");
       }
       let groups = userInfo.groups;
       Object.entries(adminChanges).forEach(([adminPower, hasIt]) => {
