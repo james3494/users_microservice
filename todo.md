@@ -1,5 +1,4 @@
  - rewrite errors to return informative and standardised messages
-    - controllers
     - move catchErrors to expressCallback
     - make errorHandling not use a standardised format tied to expressCallback
 
@@ -19,3 +18,5 @@
  - create a ping endpoint
 
  - look into whether the correct headers are being used
+
+ - change admin from groups to an object called admin with Booleans. eg admin = { user: true }

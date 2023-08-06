@@ -8,11 +8,11 @@ module.exports = {
        const loggedIn = getLoggedIn(httpRequest);
 
        if (!loggedIn) {
-         throwError("You must be logged in to disable / undisable a user.", 403);
+         throwError("You must be logged in to disable / undisable a user.", "user-not-logged-in", 403);
        }
 
        if (loggedIn._id !== _id && !loggedIn.groups?.includes('usersAdmin') && !loggedIn.groups?.includes('superAdmin')) {
-         throwError("You must be an admin to disable / undisable other users.", 403);
+         throwError("You must be an admin to disable / undisable other users.", "user-insufficient-admin-rights", 403);
        }
        const { modifiedCount } = await editUser({
           _id,

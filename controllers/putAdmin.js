@@ -8,16 +8,16 @@ module.exports = {
        const loggedIn = getLoggedIn(httpRequest);
 
        if (!loggedIn) {
-         throwError("You must be logged in to edit admin rights of a user.", 403);
+         throwError("You must be logged in to edit admin rights of a user.", "user-not-logged-in", 403);
        }
        if (usersAdmin !== undefined && !loggedIn.groups?.includes('usersAdmin') && !loggedIn.groups?.includes('superAdmin')) {
-         throwError("You must be an admin to edit users admin rights of a user.", 403);
+         throwError("You must be an admin to edit users admin rights of a user.", "user-insufficient-admin-rights", 403);
        }
        if (huntedAdmin !== undefined && !loggedIn.groups?.includes('huntedAdmin') && !loggedIn.groups?.includes('superAdmin')) {
-         throwError("You must be an admin to edit hunted admin rights of a user.", 403);
+         throwError("You must be an admin to edit hunted admin rights of a user.", "user-insufficient-admin-rights", 403);
        }
        if (superAdmin !== undefined && !loggedIn.groups?.includes('superAdmin')) {
-         throwError("You must be a superadmin to edit superadmin rights of a user.", 403);
+         throwError("You must be a superadmin to edit superadmin rights of a user.", "user-insufficient-admin-rights", 403);
        }
 
        const { modifiedCount } = await editAdminPermissions({

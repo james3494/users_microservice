@@ -8,10 +8,10 @@ module.exports = {
        const loggedIn = getLoggedIn(httpRequest);
 
        if (!loggedIn) {
-         throwError("You must be logged in to reset your password.", 403);
+         throwError("You must be logged in to reset your password.", "user-not-logged-in", 403);
        }
        if (loggedIn._id !== _id) {
-         throwError("You cannot reset the password of another user.", 403);
+         throwError("You cannot reset the password of another user.", "user-not-found", 404, "Trying to reset the password of a different user to the one logged in");
        }
 
        const { modifiedCount } = await resetPassword({

@@ -14,9 +14,7 @@ user-invalid-disabled
 user-invalid-modifiedOn
 user-invalid-createdOn
 user-invalid-groups
-user-invalid-groups
-user-invalid-groups
-user-invalid-friends
-user-invalid-friends
 user-invalid-friends
 user-invalid-password
+user-not-logged-in
+user-insufficient-admin-rights
