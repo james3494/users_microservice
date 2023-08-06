@@ -6,7 +6,12 @@ module.exports = {
       const user = makeUser(userInfo);
       const exists = await usersDb.findByEmail({ email: user.getEmail() });
       if (exists) {
-        throwError("User already exists with that email", "user-already-exists", 401, "Please login as a user already exists with that email address");
+        throwError({
+          title: "User already exists with that email", 
+          error: "user-already-exists", 
+          status: 401, 
+          detail: "Please login as a user already exists with that email address"
+        });
       }
       if (userInfo.password) user.resetPassword(userInfo.password);
 

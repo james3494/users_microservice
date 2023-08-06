@@ -1,6 +1,6 @@
 
 module.exports = {
-  buildMakeExpressCallback({ getCookies }) {
+  buildMakeExpressCallback({ getCookies, catchError }) {
     return  function (controller) {
       return (req, res) => {
         const httpRequest = {
@@ -19,15 +19,17 @@ module.exports = {
           }
         };
 
-        controller(httpRequest)
-          .then(httpResponse => {
-            if (httpResponse.headers)
-              res.set(httpResponse.headers);
+        const dealWithResponse = (httpResponse) => {
+          if (httpResponse.headers)
+           res.set(httpResponse.headers);
 
-            res.type('json');
-            res.status(httpResponse.status).send(httpResponse.body);
-          })
-          .catch(() => res.status(500).send({ error: 'An unhandled error occurred.' }));
+          res.type('json');
+          res.status(httpResponse.status).send(httpResponse.body);
+        }
+
+        controller(httpRequest)
+          .then(dealWithResponse)
+          .catch((err) => dealWithResponse(catchError(err)));
       };
     }
   }

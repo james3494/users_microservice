@@ -1,6 +1,5 @@
  - rewrite errors to return informative and standardised messages
-    - move catchErrors to expressCallback
-    - make errorHandling not use a standardised format tied to expressCallback
+    - make errorHandling NOT use a standardised format tied to expressCallback
 
  - create a 'getFullUser' endpoint which is accessible to admins
  - write tests!

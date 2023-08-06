@@ -6,19 +6,36 @@ module.exports = {
     return async function ({ email, password }) {
 
       if (!email) {
-        throwError ("You must supply an email", 400);
+        throwError({
+          title: "You must supply an email", 
+          status: 400,
+          error: "user-invalid-email"
+        })
       }
       if (!password) {
-        throwError ("You must supply a password", 400);
+        throwError({
+          title: "You must supply a password", 
+          status: 400,
+          error: "user-invalid-password"
+        })
       }
       const exists = await usersDb.findByEmail({ email });
       if (!exists)
-        throwError("No user found with that email", "user-not-found", 404)
+        throwError({
+          title: "No user found with that email", 
+          error: "user-not-found", 
+          status: 404
+        })
 
       const userFromDb = makeUser(exists);
 
       if (userFromDb.isDisabled() == true)
-        throwError("User has been disabled", "user-is-disabled", 403, "User has been set as disabled, only admins can undisable a user")
+        throwError({
+          title: "User has been disabled", 
+          error: "user-is-disabled", 
+          status: 403, 
+          detail: "User has been set as disabled, only admins can undisable a user"
+        })
 
 
       if (userFromDb.isCorrectPassword(password)) {
@@ -26,7 +43,12 @@ module.exports = {
           success: true,
           user: userFromDb.getAll()
         };
-      } else throwError("Email or password incorrect", "auth-incorrect-credentials", 401, "An incorrect password was supplied")
+      } else throwError({
+        title: "Email or password incorrect", 
+        error: "auth-incorrect-credentials", 
+        status: 401, 
+        detail: "An incorrect password was supplied"
+      })
 
     };
   }

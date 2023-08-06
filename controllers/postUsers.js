@@ -1,19 +1,15 @@
 
 module.exports = {
-  buildRegisterUser ({ addUser, catchError }) {
+  buildRegisterUser ({ addUser }) {
     return async function (httpRequest) {
-     try {
-       const { ...userInfo } = httpRequest.body;
-       const { insertedId } = await addUser({ ...userInfo });
+      const { ...userInfo } = httpRequest.body;
+      const { insertedId } = await addUser({ ...userInfo });
 
-       return {
-         headers: { 'Content-Type': 'application/json' },
-         statusCode: 201,
-         body: { insertedId }
-       };
-     } catch (e) {
-       return catchError(e);
-     }
+      return {
+        headers: { 'Content-Type': 'application/json' },
+        status: 201,
+        body: { insertedId }
+      };
     };
   }
 };

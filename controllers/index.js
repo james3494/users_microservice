@@ -8,7 +8,7 @@ const { buildEditUser } = require('./putUsers');
 const { buildUserSearch } = require('./getUsers');
 const { buildEditAdminRights } = require('./putAdmin');
 
-const { catchError, throwError } = require('errorHandling');
+const { throwError } = require('errorHandling');
 
 const getLoggedIn = (httpRequest) => {
   const token = httpRequest.headers.Authorization.split(' ')[1];
@@ -16,13 +16,13 @@ const getLoggedIn = (httpRequest) => {
 }
 
 const userController = Object.freeze({
-  postUsers : buildRegisterUser({ addUser, catchError }),
-  putDisabled: buildDisableUser({ editUser, catchError, throwError, getLoggedIn }),
-  getUsers: buildUserSearch({ filterUsers, catchError }),
-  putUsers: buildEditUser({ editUser, catchError, throwError, getLoggedIn }),
-  putPassword: buildResetPassword({ resetPassword, catchError, throwError, getLoggedIn }),
-  postAuth: buildLoginUser({ validateUser, catchError }),
-  putAdmin: buildEditAdminRights({ editAdminPermissions, catchError, throwError, getLoggedIn }),
+  postUsers : buildRegisterUser({ addUser }),
+  putDisabled: buildDisableUser({ editUser, throwError, getLoggedIn }),
+  getUsers: buildUserSearch({ filterUsers }),
+  putUsers: buildEditUser({ editUser, throwError, getLoggedIn }),
+  putPassword: buildResetPassword({ resetPassword, throwError, getLoggedIn }),
+  postAuth: buildLoginUser({ validateUser }),
+  putAdmin: buildEditAdminRights({ editAdminPermissions, throwError, getLoggedIn }),
 });
 
 module.exports = { ...userController };

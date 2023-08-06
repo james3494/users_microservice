@@ -4,12 +4,21 @@ module.exports = {
   makeResetPassword ({ usersDb, throwError }) {
     return async function ({ _id, oldPassword, newPassword }) {
       if (!_id) {
-        throwError('You must supply a user id to reset the password.', "user-no-id-supplied", 400);
+        throwError({
+          title: 'You must supply a user id to reset the password.', 
+          error: "user-no-id-supplied", 
+          status: 400
+        });
       }
 
       const userJson = await usersDb.findById({ _id });
       if (!userJson) {
-        throwError("No user found.", 404, "user-not-found", "No user found with the given _id");
+        throwError({
+          title: "No user found.", 
+          status: 404, 
+          error: "user-not-found", 
+          detail: "No user found with the given _id"
+        });
       }
 
       const user = makeUser(userJson);
@@ -22,7 +31,12 @@ module.exports = {
           hash: user.getHash(),
         });
 
-      } else throwError("Password incorrect.", "auth-incorrect-credentials", 401, "Unable to reset password as the old password given is incorrect")
+      } else throwError({
+        title: "Password incorrect.", 
+        error: "auth-incorrect-credentials", 
+        status: 401, 
+        detail: "Unable to reset password as the old password given is incorrect"
+      })
 
     };
   }
