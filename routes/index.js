@@ -2,10 +2,7 @@ const { buildMakeExpressCallback } = require('../expressCallback/index');
 const { catchError } = require('errorHandling');
 
 
-const makeExpressCallback = buildMakeExpressCallback({
-  getCookies: (req) => req.cookies, // the cookie parser is being used so we can easily get cookies
-  catchError
-})
+const makeExpressCallback = buildMakeExpressCallback({ catchError })
 
 const express = require('express');
 const api = express.Router();

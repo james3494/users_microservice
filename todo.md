@@ -18,3 +18,5 @@
  - look into whether the correct headers are being used
 
  - change admin from groups to an object called admin with Booleans. eg admin = { user: true }
+
+ - tidy up filtering users

@@ -1,6 +1,6 @@
 
 module.exports = {
-  buildMakeExpressCallback({ getCookies, catchError }) {
+  buildMakeExpressCallback({ catchError }) {
     return  function (controller) {
       return (req, res) => {
         const httpRequest = {
@@ -10,7 +10,6 @@ module.exports = {
           ip: req.ip,
           method: req.method,
           path: req.path,
-          cookies: getCookies(req),
           headers: {
             'Content-Type': req.get('Content-Type'),
             Referer: req.get('referer'),
