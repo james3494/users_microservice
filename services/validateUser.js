@@ -26,7 +26,7 @@ module.exports = {
           success: true,
           user: userFromDb.getAll()
         };
-      } else throwError("Email or password incorrect", "user-auth-credentials-incorrect", 401, "An incorrect password was supplied")
+      } else throwError("Email or password incorrect", "auth-incorrect-credentials", 401, "An incorrect password was supplied")
 
     };
   }

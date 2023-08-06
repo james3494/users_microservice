@@ -2,7 +2,7 @@ user-already-exists
 user-not-found
 user-no-id-supplied
 user-invalid-filter-object
-user-auth-credentials-incorrect
+auth-incorrect-credentials
 user-is-disabled
 user-invalid-id
 user-invalid-email

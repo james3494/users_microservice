@@ -22,7 +22,7 @@ module.exports = {
           hash: user.getHash(),
         });
 
-      } else throwError("Password incorrect.", "user-auth-credentials-incorrect", 401, "Unable to reset password as the old password given is incorrect")
+      } else throwError("Password incorrect.", "auth-incorrect-credentials", 401, "Unable to reset password as the old password given is incorrect")
 
     };
   }
