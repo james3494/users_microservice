@@ -12,7 +12,6 @@
 
  - change sessions to return just a status then another endpoint to get info (more of a todo for gateway)
 
- - rename post sessions to auth
  - add / remove friend functionality
  - delete user functionality? (would be useful for testing)
  - create a ping endpoint
