@@ -30,6 +30,7 @@ module.exports = {
         firstName: toEdit.getFirstName(),
         groups: toEdit.getGroups(),
         friends: toEdit.getFriends(),
+        admin: toEdit.getAdmin(),
         modifiedOn: Date.now(),
       });
     };

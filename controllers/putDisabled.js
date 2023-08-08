@@ -14,7 +14,7 @@ module.exports = {
         });
       }
 
-      if (loggedIn._id !== _id && !loggedIn.groups?.includes('usersAdmin') && !loggedIn.groups?.includes('superAdmin')) {
+      if (loggedIn._id !== _id && !loggedIn.admin?.users && !loggedIn.admin?.super) {
         throwError({
           title: "You must be an admin to disable / undisable other users.", 
           error: "user-insufficient-admin-rights", 

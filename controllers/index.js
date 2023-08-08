@@ -1,5 +1,5 @@
 
-const { addUser, validateUser, editUser, resetPassword, filterUsers, editAdminPermissions } = require('../services');
+const { addUser, validateUser, editUser, resetPassword, filterUsers } = require('../services');
 const { buildRegisterUser } = require('./postUsers');
 const { buildLoginUser } = require('./postAuth');
 const { buildDisableUser } = require('./putDisabled');
@@ -22,7 +22,7 @@ const userController = Object.freeze({
   putUsers: buildEditUser({ editUser, throwError, getLoggedIn }),
   putPassword: buildResetPassword({ resetPassword, throwError, getLoggedIn }),
   postAuth: buildLoginUser({ validateUser }),
-  putAdmin: buildEditAdminRights({ editAdminPermissions, throwError, getLoggedIn }),
+  putAdmin: buildEditAdminRights({ editUser, throwError, getLoggedIn }),
 });
 
 module.exports = { ...userController };

@@ -1,4 +1,4 @@
-
+// ut something in here to ensure admin changes can't be passed this way, by passing putAdmin
 module.exports = {
   buildEditUser ({ editUser, throwError, getLoggedIn }) {
     return async function (httpRequest) {
@@ -13,7 +13,7 @@ module.exports = {
           status: 403
         });
       }
-      if (loggedIn._id !== _id && !loggedIn.groups?.includes('usersAdmin') && !loggedIn.groups?.includes('superAdmin')) {
+      if (loggedIn._id !== _id && !loggedIn.admin?.users && !loggedIn.admin?.super) {
         throwError({
           title: "You must be an admin to edit other users.", 
           error: "user-insufficient-admin-rights", 

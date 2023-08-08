@@ -13,15 +13,11 @@ A microservice for users associated with jamesmabon.co.uk
  - way of sharing validation between front and back end
  - move out validation to a seperate module and have functions return something more useful
 
- - change sessions to return just a status then another endpoint to get info (more of a todo for gateway)
-
  - add / remove friend functionality
  - delete user functionality? (would be useful for testing)
  - create a ping endpoint
 
  - look into whether the correct headers are being used
-
- - change admin from groups to an object called admin with Booleans. eg admin = { user: true }
 
  - tidy up filtering users
 

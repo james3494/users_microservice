@@ -12,6 +12,7 @@ module.exports = {
       salt = hashMachine.genSalt(),
       hash = hashMachine.hash(hashMachine.getDefaultPassword(), salt),
       groups = [],
+      admin = {},
       friends = [],
       disabled = false,
     } = {}) {
@@ -94,13 +95,21 @@ module.exports = {
         status: 400
       });
       }
-      const allowedGroups = ['usersAdmin', 'huntedAdmin', 'superAdmin'];
-        if (!groups.every(group => allowedGroups.includes(group))) {
-       throwError({
-        title: 'All user groups must be one of [' + allowedGroups.reduce((string, group) => string + ' ' + group) + ']', 
-        error: "user-invalid-groups", 
-        status: 400
-      });
+
+      if (typeof admin !== 'object' || Array.isArray(admin)) {
+        throwError({
+         title: 'User admin must be an object.', 
+         error: "user-invalid-admin", 
+         status: 400
+       });
+      }
+      const allowedAdminPowers = ['users', 'takeOut', 'super'];
+      if (!Object.keys(admin).every(power => allowedAdminPowers.includes(power))) {
+        throwError({
+          title: 'All user admin powers must be one of [' + allowedAdminPowers.reduce((string, power) => string + ' ' + power) + ']', 
+          error: "user-invalid-admin", 
+          status: 400
+       });
       }
 
 
@@ -137,6 +146,7 @@ module.exports = {
         getHash: () => hash,
         getSalt: () => salt,
         getGroups: () => groups,
+        getAdmin: () => admin,
         getFriends: () => friends,
         isDisabled: () => disabled,
         resetPassword: (password) => {
@@ -161,6 +171,7 @@ module.exports = {
          createdOn,
          _id,
          modifiedOn,
+         admin,
          groups,
          disabled,
          friends,

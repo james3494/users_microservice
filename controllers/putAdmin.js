@@ -1,9 +1,10 @@
-// todo: finish this (work out ow to actually post things) - switch to an object for groups?
+// todo: finish this (work out ow to actually post things)
+// this is an overwrite, potentially we want a patch to?
 module.exports = {
-  buildEditAdminRights ({ editAdminPermissions, throwError, getLoggedIn }) {
+  buildEditAdminRights ({ editUser, throwError, getLoggedIn }) {
     return async function (httpRequest) {
       const { _id } = httpRequest.params;
-      const { superAdmin, usersAdmin, huntedAdmin } = httpRequest.body;
+      const { admin } = httpRequest.body;
       const loggedIn = getLoggedIn(httpRequest);
 
       if (!loggedIn) {
@@ -13,33 +14,31 @@ module.exports = {
           status: 403
       });
       }
-      if (usersAdmin !== undefined && !loggedIn.groups?.includes('usersAdmin') && !loggedIn.groups?.includes('superAdmin')) {
+      if (admin.users !== undefined && !loggedIn.admin.users && !loggedIn.admin.super) {
         throwError({ 
           title: "You must be an admin to edit users admin rights of a user.", 
           error: "user-insufficient-admin-rights", 
           status: 403
       });
       }
-      if (huntedAdmin !== undefined && !loggedIn.groups?.includes('huntedAdmin') && !loggedIn.groups?.includes('superAdmin')) {
+      if (admin.takeOut !== undefined && !loggedIn.admin.takeOut && !loggedIn.admin.super) {
         throwError({ 
-          title: "You must be an admin to edit hunted admin rights of a user.", 
+          title: "You must be an admin to edit takeOut admin rights of a user.", 
           error: "user-insufficient-admin-rights", 
           status: 403
       });
       }
-      if (superAdmin !== undefined && !loggedIn.groups?.includes('superAdmin')) {
+      if (admin.super !== undefined && !loggedIn.admin.super) {
         throwError({ 
-          title: "You must be a superadmin to edit superadmin rights of a user.", 
+          title: "You must be a super admin to edit super rights of a user.", 
           error: "user-insufficient-admin-rights", 
           status: 403
       });
       }
 
-      const { modifiedCount } = await editAdminPermissions({
+      const { modifiedCount } = await editUser({
         _id,
-        superAdmin,
-        usersAdmin,
-        huntedAdmin
+        admin
       });
 
       return {
