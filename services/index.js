@@ -1,4 +1,5 @@
 const { makeAddUser } = require('./addUser');
+const { makeRemoveUser } = require('./removeUser');
 const { makeEditUser } = require('./editUser');
 const { makeResetPassword } = require('./resetPassword');
 const { makeValidateUser } = require('./validateUser');
@@ -11,13 +12,15 @@ const editUser = makeEditUser({ usersDb, throwError });
 const validateUser = makeValidateUser({ usersDb, throwError });
 const filterUsers = makeFilterUsers({ usersDb, throwError });
 const resetPassword = makeResetPassword({ usersDb, throwError });
+const removeUser = makeRemoveUser({ usersDb, throwError });
 
 const userService = Object.freeze({
   addUser,
   editUser,
   validateUser,
   filterUsers,
-  resetPassword
+  resetPassword,
+  removeUser
 });
 
 module.exports = { ...userService };

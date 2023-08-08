@@ -21,7 +21,7 @@ module.exports = {
           status: 403
         });
       }
-      const { modifiedCount } = await editUser({
+      await editUser({
         _id,
         disabled
       });

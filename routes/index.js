@@ -13,14 +13,15 @@ const {
   putUsers,
   getUsers,
   putPassword,
-  refreshToken,
-  putAdmin
+  putAdmin,
+  deleteUsers
 } = require('../controllers');
 
 api.use(express.json());
 
 api.post( `${process.env.PATH_ROUTE}/auth`, makeExpressCallback(postAuth) );
 api.post( `${process.env.PATH_ROUTE}/users`, makeExpressCallback(postUsers) );
+api.delete( `${process.env.PATH_ROUTE}/users/:_id`, makeExpressCallback(deleteUsers) );
 api.put( `${process.env.PATH_ROUTE}/users/:_id/disabled`, makeExpressCallback(putDisabled) );
 api.put( `${process.env.PATH_ROUTE}/users/:_id/password`, makeExpressCallback(putPassword) );
 api.put( `${process.env.PATH_ROUTE}/users/:_id/admin`, makeExpressCallback(putAdmin) );

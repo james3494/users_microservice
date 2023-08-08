@@ -13,14 +13,6 @@ module.exports = {
           status: 403
         });
       }
-      if (loggedIn._id !== _id) {
-        throwError({
-          title: "You cannot reset the password of another user.", 
-          error: "user-not-found", 
-          status: 404, 
-          detail: "Trying to reset the password of a different user to the one logged in"
-        });
-      }
 
       const { modifiedCount } = await resetPassword({
         _id,

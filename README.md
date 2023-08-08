@@ -11,7 +11,6 @@ A microservice for users associated with jamesmabon.co.uk
  - move out validation to a seperate module and have functions return something more useful
 
  - add / remove friend functionality
- - delete user functionality? (would be useful for testing)
  - create a ping endpoint
 
  - look into whether the correct headers are being used
