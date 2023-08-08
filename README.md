@@ -19,4 +19,6 @@ A microservice for users associated with jamesmabon.co.uk
 
  - think about whether controllers are returning the required things. This might be a case of doing it in conjunction with working on the app frontend
 
+ - postAuth should return id, groups, admin, friends (anything that might be required to authorise a request)
+
 

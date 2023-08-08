@@ -14,7 +14,7 @@ module.exports = {
             'Content-Type': req.get('Content-Type'),
             Referer: req.get('referer'),
             'User-Agent': req.get('User-Agent'),
-            Authorization: req.get('Authorization')
+            "X-Current-User": req.get("X-Current-User")
           }
         };
 
