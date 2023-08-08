@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
 const api = require ('./routes');
+const catchError = require('errorHandling').buildCatchError({ logErrors: process.env.LOG_ERRORS });
+
 
 // check api key
 app.use((req, res, next) => {
@@ -21,13 +23,7 @@ app.use((req, res, next) => {
 app.use(api);
 
 // final ditch error catch
-app.use((req, res, err) => {
-  console.log("How have we got to this and a proper error hasn't been thrown and caught? This is a last resort!")
-  console.error(err.stack);
-  console.log(err);
-  res.status(500).send('Something broke!');
-});
-
+app.use((req, res, err) => catchError(err));
 
 
 const server = app.listen(port, () => {

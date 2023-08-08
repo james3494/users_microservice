@@ -18,17 +18,13 @@ module.exports = {
           }
         };
 
-        const dealWithResponse = (httpResponse) => {
-          if (httpResponse.headers)
-           res.set(httpResponse.headers);
-
-          res.type('json');
-          res.status(httpResponse.status).send(httpResponse.body);
-        }
-
         controller(httpRequest)
-          .then(dealWithResponse)
-          .catch((err) => dealWithResponse(catchError(err)));
+          .then((httpResponse) => {
+            if (httpResponse.headers) res.set(httpResponse.headers);
+            res.set('Content-Type', 'application/json');
+            res.status(httpResponse.status).send(httpResponse.body);
+          })
+          .catch(err => catchError(res, err));
       };
     }
   }

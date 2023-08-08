@@ -2,9 +2,6 @@
 A microservice for users associated with jamesmabon.co.uk
 
 ## To Do
- - rewrite errors to return informative and standardised messages
-    - make errorHandling NOT use a standardised format tied to expressCallback. This could also involve making catchError work for erros not thrown by the throwError (myError) method
-
  - create a 'getFullUser' endpoint which is accessible to admins
  - write tests!
  - write documentation in order to clear up exactly what I'm after.

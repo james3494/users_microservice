@@ -4,7 +4,7 @@ const { makeResetPassword } = require('./resetPassword');
 const { makeValidateUser } = require('./validateUser');
 const { makeFilterUsers } = require('./filterUsers');
 const { usersDb } = require('../dataAccess');
-const { throwError } = require('errorHandling');
+const throwError = require('errorHandling').buildThrowError({ logErrors: process.env.LOG_ERRORS });
 
 const addUser = makeAddUser({ usersDb, throwError });
 const editUser = makeEditUser({ usersDb, throwError });

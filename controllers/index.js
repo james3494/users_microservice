@@ -8,7 +8,7 @@ const { buildEditUser } = require('./putUsers');
 const { buildUserSearch } = require('./getUsers');
 const { buildEditAdminRights } = require('./putAdmin');
 
-const { throwError } = require('errorHandling');
+const throwError = require('errorHandling').buildThrowError({ logErrors: process.env.LOG_ERRORS });
 
 const getLoggedIn = (httpRequest) => {
   const token = httpRequest.headers.Authorization.split(' ')[1];

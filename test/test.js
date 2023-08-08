@@ -1,5 +1,5 @@
 
-const { userTests } = require('./user.js');
+const postUserTests = require('./postUsers.js');
 
 
-userTests();
+postUserTests();
