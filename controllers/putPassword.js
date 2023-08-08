@@ -13,6 +13,13 @@ module.exports = {
           status: 403
         });
       }
+      if (loggedIn._id !== _id && !loggedIn.admin?.users && !loggedIn.admin?.super) {
+        throwError({
+          title: "You must be an admin to reset the password of other users.", 
+          error: "user-insufficient-admin-rights", 
+          status: 403
+        });
+      }
 
       const { modifiedCount } = await resetPassword({
         _id,

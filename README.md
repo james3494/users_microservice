@@ -4,7 +4,7 @@ A microservice for users associated with jamesmabon.co.uk
 ## To Do
  - create a 'getFullUser' endpoint which is accessible to admins
  - write tests!
- - write documentation in order to clear up exactly what I'm after.
+ - write documentation in order to clear up exactly what I'm after. This is long term and kinf of covered by writing tests
 
  - salt and hash validation in /entities/hashMachine.js
  - way of sharing validation between front and back end
@@ -16,5 +16,7 @@ A microservice for users associated with jamesmabon.co.uk
  - look into whether the correct headers are being used
 
  - tidy up filtering users
+
+ - think about whether controllers are returning the required things. This might be a case of doing it in conjunction with working on the app frontend
 
 

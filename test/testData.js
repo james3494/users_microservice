@@ -9,6 +9,10 @@ let user = {
   password: "MyPassword1"
 }
 
+const updateUser = (fieldsToUpdate) => {
+  user = { ...user, ...fieldsToUpdate }
+}
+
 
 
 const postUsers = [
@@ -20,9 +24,7 @@ const postUsers = [
     },
     should: "should return an error for an invalid password",
     sendBody: {
-      firstName: "Testy",
-      lastName: "McTestface",
-      email: "test@test.com",
+      ...user,
       password: "MyPass"
     }
   },
@@ -34,10 +36,8 @@ const postUsers = [
     },
     should: "should return an error for an invalid email",
     sendBody: {
-      firstName: "Testy",
-      lastName: "McTestface",
+      ...user,
       email: "justanemail",
-      password: "MyPassword1"
     }
   },
   {
@@ -48,10 +48,8 @@ const postUsers = [
     },
     should: "should return an error for an invalid firstName",
     sendBody: {
-      firstName: "Testy*",
-      lastName: "McTestface",
-      email: "test@test.com",
-      password: "MyPassword1"
+      ...user,
+      firstName: "Testy*"
     }
   },
   {
@@ -61,20 +59,19 @@ const postUsers = [
       error: "user-invalid-lastName",
       status: 400
     },
-    sendBody: {
-      firstName: "Testy",
+    sendBody: { 
+      ...user, 
       lastName: "McTestfacethisisareallyreallylonglastnamesolonginfactithinkitsoverthelimit",
-      email: "test@test.com",
-      password: "MyPassword1"
     }
   },
   {
     expectedStatus: 201,
     expectedBody: {
-      status: 201
+      insertedId: "notnull"
     },
-    should: "should return a success message and the user should have been created",
-    sendBody: user
+    should: "should return an insertedId and a successful status. The user should have been created",
+    sendBody: user,
+    callback: (res) => updateUser({ _id: res.body.insertedId })
   },
   {
     expectedStatus: 401,
@@ -83,18 +80,42 @@ const postUsers = [
       error: "user-already-exists",
       status: 401
     },
-    sendBody: {
-      firstName: "Testy",
-      lastName: "McTestface",
-      email: "test@test.com",
-      password: "MyPassword1"
-    }
+    sendBody: user
   }
 ]
 
 
 
+
+
+
+const deleteUsers = [
+  // include one without being logged in, and one without sufficient admin permissions
+  {
+    expectedStatus: 200,
+    expectedBody: {
+      deletedId: "notnull"
+    },
+    should: "should return a deletedId and a successful status",
+    sendBody: {
+      _id: user._id
+    }
+  },
+  {
+    expectedStatus: 404,
+    should: "should return a 404 as the user has already been deleted and can't be found",
+    expectedBody: {
+      error: "user-not-found",
+      status: 404
+    },
+    sendBody: {
+      _id: user._id
+    }
+  },
+]
+
+
 module.exports = {
   postUsers,
-  user
+  deleteUsers
 }
