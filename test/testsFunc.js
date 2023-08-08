@@ -2,24 +2,19 @@ const request = require("supertest");
 const { app } = require("../server.js");
 const expect = require('chai').expect;
 
-
-
-module.exports = ({ 
-    testData, 
-    description, 
-    endpoint, 
-    method
-}) => describe(description, () => {
-    const tests = require("./testData.js")[testData];
-
+const testsFunc = ({ tests, endpoint, method, setUserId, user }) => {
     tests.forEach((test) => {
-        it(test.should, (done) => {
+        let should = test({}).should;
+        it(should, (done) => {
+            test = test(user)
             request(app)
-            [method](`${process.env.PATH_ROUTE}/${endpoint}`)
+            [method](`${process.env.PATH_ROUTE}/${test.endpoint || endpoint}`)
             .send(test.sendBody)
             .set("X-Api-Key", process.env.API_KEY)
+            .set("X-Current-User", JSON.stringify(test.loggedInUser || null))
             .set("Content-Type", "application/json")
-            .end((err, res) => {
+            .end((error, res) => {
+
                 try {
                     expect(res.statusCode).to.be.equal(test.expectedStatus)
                     Object.entries(test.expectedBody || {}).forEach(([key, value]) => {
@@ -30,14 +25,16 @@ module.exports = ({
                 } catch (err) {
                     // print res.body in the case of a failed response
                     console.log("Response body: ")
-                    console.log(res.body)
-                    throw err; 
+                    console.log(res ? res.body : "no response body")
+                    throw err
                 } finally {
-                    if (test.callback) test.callback(res)
+                    if (res.body.insertedId && setUserId) setUserId(res.body.insertedId)
                 }
+
                 done()
             })
         });
     })
-});
+}
 
+module.exports = testsFunc

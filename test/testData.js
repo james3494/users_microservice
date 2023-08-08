@@ -1,22 +1,6 @@
 
-// we will create this user, modify it and then delete it.
-// tests must be run in order to ensure the user is there. 
-// Or at least they must have createUser and deleteUser bookending them
-let user = {
-  firstName: "Testy",
-  lastName: "McTestface",
-  email: "test@test.com",
-  password: "MyPassword1"
-}
-
-const updateUser = (fieldsToUpdate) => {
-  user = { ...user, ...fieldsToUpdate }
-}
-
-
-
 const postUsers = [
-  {
+  (user) => ({
     expectedStatus: 400,
     expectedBody: {
       error: "user-invalid-password",
@@ -27,8 +11,8 @@ const postUsers = [
       ...user,
       password: "MyPass"
     }
-  },
-  {
+  }),
+  (user) => ({
     expectedStatus: 400,
     expectedBody: {
       error: "user-invalid-email",
@@ -39,8 +23,8 @@ const postUsers = [
       ...user,
       email: "justanemail",
     }
-  },
-  {
+  }),
+  (user) => ({
     expectedStatus: 400,
     expectedBody: {
       error: "user-invalid-firstName",
@@ -51,8 +35,8 @@ const postUsers = [
       ...user,
       firstName: "Testy*"
     }
-  },
-  {
+  }),
+  (user) => ({
     expectedStatus: 400,
     should: "should return an error for an invalid lastName",
     expectedBody: {
@@ -63,17 +47,16 @@ const postUsers = [
       ...user, 
       lastName: "McTestfacethisisareallyreallylonglastnamesolonginfactithinkitsoverthelimit",
     }
-  },
-  {
+  }),
+  (user) => ({
     expectedStatus: 201,
     expectedBody: {
       insertedId: "notnull"
     },
     should: "should return an insertedId and a successful status. The user should have been created",
     sendBody: user,
-    callback: (res) => updateUser({ _id: res.body.insertedId })
-  },
-  {
+  }),
+  (user) => ({
     expectedStatus: 401,
     should: "should return an error for trying to create a user which already exists",
     expectedBody: {
@@ -81,7 +64,7 @@ const postUsers = [
       status: 401
     },
     sendBody: user
-  }
+  })
 ]
 
 
@@ -90,19 +73,40 @@ const postUsers = [
 
 
 const deleteUsers = [
-  // include one without being logged in, and one without sufficient admin permissions
-  {
+  (user) => ({
+    expectedStatus: 403,
+    endpoint: `users/${user._id}`,
+    expectedBody: {
+      status: 403,
+      error: "user-insufficient-admin-rights"
+    },
+    should: "should return an error about insufficient admin permissions",
+    sendBody: {
+      _id: user._id
+    },
+    loggedInUser: {
+      _id: user._id,
+      admin: { super: false }
+    }
+  }),
+  (user) => ({
     expectedStatus: 200,
+    endpoint: `users/${user._id}`,
     expectedBody: {
       deletedId: "notnull"
     },
     should: "should return a deletedId and a successful status",
     sendBody: {
       _id: user._id
+    },
+    loggedInUser: {
+      _id: user._id,
+      admin: { super: true }
     }
-  },
-  {
+  }),
+  (user) => ({
     expectedStatus: 404,
+    endpoint: `users/${user._id}`,
     should: "should return a 404 as the user has already been deleted and can't be found",
     expectedBody: {
       error: "user-not-found",
@@ -110,12 +114,17 @@ const deleteUsers = [
     },
     sendBody: {
       _id: user._id
+    },
+    loggedInUser: {
+      _id: user._id,
+      admin: { super: true }
     }
-  },
+  }),
 ]
 
 
-module.exports = {
+module.exports =  {
   postUsers,
-  deleteUsers
+  deleteUsers,
 }
+

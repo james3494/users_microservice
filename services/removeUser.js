@@ -2,10 +2,10 @@ const { makeUser } = require('../entities');
 
 module.exports = {
    makeRemoveUser ({ usersDb, throwError }) {
-    return async function (userInfo) {
-      const user = makeUser(userInfo);
-      const exists = await usersDb.findById({ _id: user.getId() });
-      if (!exists) {
+    return async function ({ _id }) {
+      const existingUser = await usersDb.findById({ _id });
+
+      if (!existingUser) {
         throwError({ 
             title: "No user found to delete.", 
             error:  "user-not-found", 
@@ -13,9 +13,9 @@ module.exports = {
             detail: "No user found with the supplied _id"
           });
       }
-
+      const user = makeUser(existingUser);
       const { deletedCount } = await usersDb.remove({
-        ... user.getId()
+         _id: user.getId()
       });
 
       if (deletedCount < 1) {

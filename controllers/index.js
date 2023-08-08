@@ -32,7 +32,7 @@ const userController = Object.freeze({
   putPassword: buildResetPassword({ resetPassword, throwError, getLoggedIn }),
   postAuth: buildLoginUser({ validateUser }),
   putAdmin: buildEditAdminRights({ editUser, throwError, getLoggedIn }),
-  deleteUsers: buildDeleteUser({ removeUser, getLoggedIn })
+  deleteUsers: buildDeleteUser({ removeUser, getLoggedIn, throwError })
 });
 
 module.exports = { ...userController };
