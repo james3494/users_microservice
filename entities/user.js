@@ -103,7 +103,7 @@ module.exports = {
          status: 400
        });
       }
-      const allowedAdminPowers = ['users', 'takeOut', 'super'];
+      const allowedAdminPowers = ['users', 'takeout', 'super'];
       if (!Object.keys(admin).every(power => allowedAdminPowers.includes(power))) {
         throwError({
           title: 'All user admin powers must be one of [' + allowedAdminPowers.reduce((string, power) => string + ' ' + power) + ']', 

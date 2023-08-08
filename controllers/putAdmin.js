@@ -21,9 +21,9 @@ module.exports = {
           status: 403
       });
       }
-      if (admin.takeOut !== undefined && !loggedIn.admin.takeOut && !loggedIn.admin.super) {
+      if (admin.takeout !== undefined && !loggedIn.admin.takeout && !loggedIn.admin.super) {
         throwError({ 
-          title: "You must be an admin to edit takeOut admin rights of a user.", 
+          title: "You must be an admin to edit takeout admin rights of a user.", 
           error: "user-insufficient-admin-rights", 
           status: 403
       });
