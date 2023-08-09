@@ -2,6 +2,7 @@
 const testsFunc = require("./testsFunc.js");
 const postUserTests = require("./postUserTests.js");
 const deleteUserTests = require("./deleteUserTests.js");
+const authTests = require("./authTests.js");
 const pingTests = require("./pingTests.js");
 
 
@@ -40,13 +41,14 @@ describe("Testing user microservice", () => {
     // OTHER TESTS GO HERE
 // ___________________________________________________________________________________________________________________
 
-
-
-    describe('Testing GET request', function () {
-        it('should return status 200', function () {
-            console.log("inside it: " + user)
-        });
-    });
+    describe("POST /auth", () => {
+        testsFunc({ 
+            tests: authTests, 
+            endpoint: "auth", 
+            method: "post",
+            user
+        })
+    })
 
 
 
