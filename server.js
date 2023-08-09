@@ -12,6 +12,7 @@ app.use((req, res, next) => {
   const apiKey = req.get("X-Api-Key");
   if (!apiKey || apiKey !== process.env.API_KEY) {
     res.status(403).send({
+      status: 403,
       title: "Invalid API key",
       error: "user-microservice-invalid-api-key",
       detail: "Microservices can only be accessed via the API gateway."

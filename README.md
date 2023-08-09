@@ -11,13 +11,14 @@ A microservice for users associated with the Take Out app.
  - move out validation to a seperate module and have functions return something more useful
 
  - add / remove friend functionality
- - create a ping endpoint
 
  - look into whether the correct headers are being used
 
  - tidy up filtering users
 
  - think about whether controllers are returning the required things. This might be a case of doing it in conjunction with working on the app frontend
+
+ - check the jwt is updated whenever groups, admin or friends are modified
 
 
 

@@ -7,11 +7,11 @@ const testsFunc = ({ tests, endpoint, method, setUserId, user }) => {
         // this is a hack - need should now but need to initialise test inside it to get updated user
         let should = test({}).should;
         it(should, (done) => {
-            test = test(user)
+            test = test(user || {})
             request(app)
             [method](`${process.env.PATH_ROUTE}/${test.endpoint || endpoint}`)
             .send(test.sendBody)
-            .set("X-Api-Key", process.env.API_KEY)
+            .set(test.apiKeyOverride === null ? "X-Other" : "X-Api-Key", test.apiKeyOverride || process.env.API_KEY)
             .set("X-Current-User", JSON.stringify(test.loggedInUser || null))
             .set("Content-Type", "application/json")
             .end((error, res) => {

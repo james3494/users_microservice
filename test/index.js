@@ -2,6 +2,7 @@
 const testsFunc = require("./testsFunc.js");
 const postUserTests = require("./postUserTests.js");
 const deleteUserTests = require("./deleteUserTests.js");
+const pingTests = require("./pingTests.js");
 
 
 
@@ -17,9 +18,16 @@ describe("Testing user microservice", () => {
         user._id = _id
     }
 
-    // write test to check if it fails when wrong api key sent / no api key
+    // These ping tests check the microservice is online and that the call is rejected if there is an invalid api key
+    describe("GET /ping", () => {
+        testsFunc({ 
+            tests: pingTests, 
+            endpoint: "ping", 
+            method: "get",
+        })
+    })
 
-    // create user tests - must stay at the top to have a user
+    // create user tests - must stay at the top to have a user to work with for other tests
     describe("POST /user", () => {
         testsFunc({ 
             tests: postUserTests, 
@@ -35,7 +43,6 @@ describe("Testing user microservice", () => {
 
 
     describe('Testing GET request', function () {
-        console.log("outside it: " + user)
         it('should return status 200', function () {
             console.log("inside it: " + user)
         });

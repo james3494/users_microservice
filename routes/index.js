@@ -29,5 +29,6 @@ api.put( `${process.env.PATH_ROUTE}/users/:_id`, makeExpressCallback(putUsers) )
 api.get( `${process.env.PATH_ROUTE}/users`, makeExpressCallback(getUsers) ); // include search parameters, returns array
 api.get( `${process.env.PATH_ROUTE}/users/:_id`, makeExpressCallback(getUsers) ); // returns single user
 api.get( `${process.env.PATH_ROUTE}/users/:_id/:_field`, makeExpressCallback(getUsers) ); // returns field of user. May not be allowed everything
+api.get( `${process.env.PATH_ROUTE}/ping`, (req, res) => res.send("You pinged the users microservice!") );
 
 module.exports = api;
