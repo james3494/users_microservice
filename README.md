@@ -1,10 +1,10 @@
 # users microservice
-A microservice for users associated with jamesmabon.co.uk
+A microservice for users associated with the Take Out app.
 
 ## To Do
  - create a 'getFullUser' endpoint which is accessible to admins
  - write tests!
- - write documentation in order to clear up exactly what I'm after. This is long term and kinf of covered by writing tests
+ - write documentation in order to clear up exactly what I'm after. This is long term and kind of covered by writing tests
 
  - salt and hash validation in /entities/hashMachine.js
  - way of sharing validation between front and back end
@@ -19,6 +19,5 @@ A microservice for users associated with jamesmabon.co.uk
 
  - think about whether controllers are returning the required things. This might be a case of doing it in conjunction with working on the app frontend
 
- - postAuth should return id, groups, admin, friends (anything that might be required to authorise a request)
 
 

@@ -4,6 +4,7 @@ const expect = require('chai').expect;
 
 const testsFunc = ({ tests, endpoint, method, setUserId, user }) => {
     tests.forEach((test) => {
+        // this is a hack - need should now but need to initialise test inside it to get updated user
         let should = test({}).should;
         it(should, (done) => {
             test = test(user)

@@ -1,6 +1,7 @@
 
 const testsFunc = require("./testsFunc.js");
-const allTests = require("./testData.js");
+const postUserTests = require("./postUserTests.js");
+const deleteUserTests = require("./deleteUserTests.js");
 
 
 
@@ -21,7 +22,7 @@ describe("Testing user microservice", () => {
     // create user tests - must stay at the top to have a user
     describe("POST /user", () => {
         testsFunc({ 
-            tests: allTests.postUsers, 
+            tests: postUserTests, 
             endpoint: "users", 
             method: "post",
             setUserId,
@@ -49,8 +50,7 @@ describe("Testing user microservice", () => {
     // delete user tests - must stay at the bottom to clean up
     describe("DELETE /user", () => {
         testsFunc({ 
-            tests: allTests.deleteUsers, 
-            endpoint: "users", 
+            tests: deleteUserTests, 
             method: "delete",
             user
         })
