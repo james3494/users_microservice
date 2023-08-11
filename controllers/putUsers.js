@@ -1,4 +1,4 @@
-// ut something in here to ensure admin changes can't be passed this way, by passing putAdmin
+
 module.exports = {
   buildEditUser ({ editUser, throwError, getLoggedIn }) {
     return async function (httpRequest) {
@@ -20,7 +20,8 @@ module.exports = {
           status: 403
         });
       }
-      // at the moment only fields to edit are firstname and lastname
+      // at the moment only fields to edit are firstname and lastname.
+      // want to be strict about what can be edited. eg don't use all because someone might pass in admin, friends etc
       const { modifiedCount } = await editUser({
         _id,
         ...(firstName ? { firstName } : {}),

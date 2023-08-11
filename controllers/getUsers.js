@@ -1,44 +1,33 @@
-// TODO: allow filtering by disabled, admin etc
-// TODO : this is a bit hacky in terms of switching whether param or query
-// TODO: dob't return the whole object / only allow certain fields
+// TODO: choose which fields to return - does it depend on whos logged in?
+
 module.exports = {
-  buildUserSearch ({ filterUsers, catchError }) {
+  buildUserSearch({ filterUsers }) {
     return async function (httpRequest) {
       const { ...filters } = httpRequest.query;
-      const { _id, field } = httpRequest.params;
+      const { _id } = httpRequest.params;
 
-      let fiterObj = {};
+      let filterObj = {};
       if (_id) {
-        filterObj = {
-          _id
-        }
-      } else {
-        if (filters && filters.search) {
-          const exploded = filters.search.split(' ').map(string => {
-            const exp = `.*${string}.*`;
-            return new RegExp(exp, "i");
-          });
-          filterObj = {
-            $or: [
-              { firstName: { $in: exploded } },
-              { lastName: { $in: exploded } },
-            ],
-          }
-        }
+        filterObj = { _id }
       }
-      let filtered = await filterUsers(filterObj);
+      const filtered = await filterUsers(filterObj);
+      let body = filtered.map(user => ({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        groups: user.groups,
+        friends: user.friends,
+        email: user.email,
+      }))
 
       if (_id) {
-        filtered = filtered[0];
-        // todo some checks whether this field is acceptable to get
-        if (field) filtered = filtered[field];
+        body = body[0];
       }
 
       return {
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
         status: 201,
-        body: filtered
+        body,
       };
     };
-  }
+  },
 };

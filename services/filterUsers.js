@@ -1,7 +1,5 @@
 const { makeUser } = require('../entities');
 
-// expects filters to be a mongodb style object. A bit bad that we need mongo specific code now floating around elsewhere
-
 module.exports = {
    makeFilterUsers ({ usersDb, throwError }) {
     return async function ({ ...filters }) {
@@ -15,7 +13,7 @@ module.exports = {
         });
       }
 
-      const usersFromDb = await usersDb.customFind(filters);
+      const usersFromDb = await usersDb.smartFilter(filters);
 
       let usersRtn = [];
       // do try catch statements in a loop to prevent it dying if there's one corrupt user
