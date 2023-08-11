@@ -1,7 +1,9 @@
+const endpoint = 'ping';
 
 const pingTests = [
     (user) => ({
         expectedStatus: 403,
+        endpoint,
         expectedBody: {
             error: "user-microservice-invalid-api-key",
             status: 403
@@ -11,6 +13,7 @@ const pingTests = [
     }),
     (user) => ({
         expectedStatus: 403,
+        endpoint,
         expectedBody: {
             error: "user-microservice-invalid-api-key",
             status: 403
@@ -20,6 +23,7 @@ const pingTests = [
     }),
     (user) => ({
         expectedStatus: 200,
+        endpoint,
         should: "should return a success status because the api is online",
     }),
 ]

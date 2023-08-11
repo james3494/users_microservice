@@ -9,9 +9,11 @@ module.exports = {
       let filterObj = {};
       if (_id) {
         filterObj = { _id }
-      }
+      } else filterObj = filters;
+
       const filtered = await filterUsers(filterObj);
       let body = filtered.map(user => ({
+        _id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         groups: user.groups,
@@ -23,9 +25,10 @@ module.exports = {
         body = body[0];
       }
 
+
       return {
         headers: { "Content-Type": "application/json" },
-        status: 201,
+        status: 200,
         body,
       };
     };

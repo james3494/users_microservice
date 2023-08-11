@@ -20,7 +20,7 @@ const deleteUsers = [
       expectedStatus: 200,
       endpoint: `users/${user._id}`,
       expectedBody: {
-        deletedId: "notnull"
+        deletedId: user._id
       },
       should: "should return a deletedId and a successful status",
       sendBody: {

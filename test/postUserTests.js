@@ -1,7 +1,9 @@
+const endpoint = 'users'
 
 const postUsers = [
     (user) => ({
       expectedStatus: 400,
+      endpoint,
       expectedBody: {
         error: "user-invalid-password",
         status: 400
@@ -14,6 +16,7 @@ const postUsers = [
     }),
     (user) => ({
       expectedStatus: 400,
+      endpoint,
       expectedBody: {
         error: "user-invalid-email",
         status: 400
@@ -26,6 +29,7 @@ const postUsers = [
     }),
     (user) => ({
       expectedStatus: 400,
+      endpoint,
       expectedBody: {
         error: "user-invalid-firstName",
         status: 400
@@ -39,6 +43,7 @@ const postUsers = [
     (user) => ({
       expectedStatus: 400,
       should: "should return an error for an invalid lastName",
+      endpoint,
       expectedBody: {
         error: "user-invalid-lastName",
         status: 400
@@ -50,6 +55,7 @@ const postUsers = [
     }),
     (user) => ({
       expectedStatus: 201,
+      endpoint,
       expectedBody: {
         insertedId: "notnull"
       },
@@ -59,6 +65,7 @@ const postUsers = [
     (user) => ({
       expectedStatus: 401,
       should: "should return an error for trying to create a user which already exists",
+      endpoint,
       expectedBody: {
         error: "user-already-exists",
         status: 401

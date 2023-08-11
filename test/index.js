@@ -4,6 +4,7 @@ const postUserTests = require("./postUserTests.js");
 const deleteUserTests = require("./deleteUserTests.js");
 const authTests = require("./authTests.js");
 const pingTests = require("./pingTests.js");
+const getUserTests = require("./getUserTests.js");
 
 
 
@@ -23,7 +24,6 @@ describe("Testing user microservice", () => {
     describe("GET /ping", () => {
         testsFunc({ 
             tests: pingTests, 
-            endpoint: "ping", 
             method: "get",
         })
     })
@@ -32,7 +32,6 @@ describe("Testing user microservice", () => {
     describe("POST /user", () => {
         testsFunc({ 
             tests: postUserTests, 
-            endpoint: "users", 
             method: "post",
             setUserId,
             user
@@ -44,8 +43,16 @@ describe("Testing user microservice", () => {
     describe("POST /auth", () => {
         testsFunc({ 
             tests: authTests, 
-            endpoint: "auth", 
             method: "post",
+            user
+        })
+    })
+
+
+    describe("GET /users", () => {
+        testsFunc({ 
+            tests: getUserTests, 
+            method: "get",
             user
         })
     })

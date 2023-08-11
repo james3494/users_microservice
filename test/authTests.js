@@ -1,7 +1,9 @@
+const endpoint = 'auth'
 
 const authTests = [
     (user) => ({
       expectedStatus: 400,
+      endpoint,
       expectedBody: {
         error: "user-invalid-password",
         status: 400
@@ -13,6 +15,7 @@ const authTests = [
     }),
     (user) => ({
       expectedStatus: 400,
+      endpoint,
       expectedBody: {
         error: "user-invalid-email",
         status: 400
@@ -24,6 +27,7 @@ const authTests = [
     }),
     (user) => ({
       expectedStatus: 404,
+      endpoint,
       expectedBody: {
         error: "user-not-found",
         status: 404
@@ -36,6 +40,7 @@ const authTests = [
     }),
     (user) => ({
       expectedStatus: 401,
+      endpoint,
       expectedBody: {
         error: "auth-incorrect-credentials",
         status: 401
@@ -49,7 +54,8 @@ const authTests = [
     // how do we make the user disabled first?
     // (user) => ({
     //   expectedStatus: 403,
-    //   expectedBody: {
+    // endpoint,
+    // expectedBody: {
     //     error: "user-is-disabled",
     //     status: 403
     //   },
@@ -61,6 +67,7 @@ const authTests = [
     // }),
     (user) => ({
       expectedStatus: 200,
+      endpoint,
       expectedBody: {
         _id: user._id,
         groups: "notnull",
