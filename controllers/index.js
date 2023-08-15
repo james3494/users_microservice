@@ -27,7 +27,7 @@ const getLoggedIn = (httpRequest) => {
 const userController = Object.freeze({
   postUsers : buildRegisterUser({ addUser }),
   putDisabled: buildDisableUser({ editUser, throwError, getLoggedIn }),
-  getUsers: buildUserSearch({ filterUsers }),
+  getUsers: buildUserSearch({ filterUsers, throwError, getLoggedIn }),
   putUsers: buildEditUser({ editUser, throwError, getLoggedIn }),
   putPassword: buildResetPassword({ resetPassword, throwError, getLoggedIn }),
   postAuth: buildLoginUser({ validateUser }),
