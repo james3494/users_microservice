@@ -23,7 +23,7 @@ module.exports = {
       }))
 
       if (_id) {
-        if (body.length < 0) {
+        if (body.length < 1) {
           throwError({
             status: 404,
             title: "User not found with specified id",
