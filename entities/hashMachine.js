@@ -20,10 +20,6 @@ const hashMachine = Object.freeze({
     // this should be improved
     return salt.length > 0;
   },
-  isValidPassword(password) {
-    return /^[a-zA-Z\d]{8,16}$/.test(password);
-    // return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/.test(password);
-  }
 });
 
 module.exports = {
