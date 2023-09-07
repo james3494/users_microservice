@@ -1,5 +1,3 @@
-// TODO: choose which fields to return - does it depend on whos logged in?
-// three tiers: for someone else, your own user, and an admin looking at details of user
 
 module.exports = {
   buildUserSearch({ filterUsers, throwError, getLoggedIn }) {
@@ -13,16 +11,30 @@ module.exports = {
         filterObj = { _id };
       } else filterObj = filters;
 
-      const filtered = await filterUsers(filterObj);
-      let body = filtered.map((user) => ({
+      const foundUsers = await filterUsers(filterObj);
+
+      const loggedInIsAdmin = loggedIn?.admin?.users || loggedIn?.admin?.super;
+
+      let body = foundUsers.map((user) => ({
         _id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
-        groups: user.groups,
-        friends: user.friends,
-        email: user.email,
-        phone: user.phone,
         photo: user.photo,
+        friends: user.friends,
+        subscription: user.subscription,
+        ...(loggedInIsAdmin || loggedIn?._id === user._id
+          ? { groups: user.groups }
+          : {}),
+        ...(loggedInIsAdmin || loggedIn?._id === user._id
+          ? { email: user.email }
+          : {}),
+        ...(loggedInIsAdmin || loggedIn?._id === user._id
+          ? { phone: user.phone }
+          : {}),
+        ...(loggedInIsAdmin ? { admin: user.admin } : {}),
+        ...(loggedInIsAdmin ? { createdOn: user.createdOn } : {}),
+        ...(loggedInIsAdmin ? { modifiedOn: user.modifiedOn } : {}),
+        ...(loggedInIsAdmin ? { disabled: user.disabled } : {}),
       }));
 
       if (_id) {
