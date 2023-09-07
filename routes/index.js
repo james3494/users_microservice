@@ -20,14 +20,14 @@ const {
 api.use(express.json());
 
 api.post( `${process.env.PATH_ROUTE}/auth`, makeExpressCallback(postAuth) );
-api.post( `${process.env.PATH_ROUTE}/users`, makeExpressCallback(postUsers) );
-api.delete( `${process.env.PATH_ROUTE}/users/:_id`, makeExpressCallback(deleteUsers) );
-api.put( `${process.env.PATH_ROUTE}/users/:_id/disabled`, makeExpressCallback(putDisabled) );
-api.put( `${process.env.PATH_ROUTE}/users/:_id/password`, makeExpressCallback(putPassword) );
-api.put( `${process.env.PATH_ROUTE}/users/:_id/admin`, makeExpressCallback(putAdmin) );
-api.put( `${process.env.PATH_ROUTE}/users/:_id`, makeExpressCallback(putUsers) );
-api.get( `${process.env.PATH_ROUTE}/users`, makeExpressCallback(getUsers) ); // include search parameters, returns array
-api.get( `${process.env.PATH_ROUTE}/users/:_id`, makeExpressCallback(getUsers) ); // returns single user
-api.get( `${process.env.PATH_ROUTE}/ping`, (req, res) => res.send("You pinged the users microservice!") );
+api.post( `${process.env.PATH_ROUTE}/user`, makeExpressCallback(postUsers) );
+api.delete( `${process.env.PATH_ROUTE}/user/:_id`, makeExpressCallback(deleteUsers) );
+api.put( `${process.env.PATH_ROUTE}/user/:_id/disabled`, makeExpressCallback(putDisabled) );
+api.put( `${process.env.PATH_ROUTE}/user/:_id/password`, makeExpressCallback(putPassword) );
+api.put( `${process.env.PATH_ROUTE}/user/:_id/admin`, makeExpressCallback(putAdmin) );
+api.put( `${process.env.PATH_ROUTE}/user/:_id`, makeExpressCallback(putUsers) );
+api.get( `${process.env.PATH_ROUTE}/user`, makeExpressCallback(getUsers) ); // include search parameters, returns array
+api.get( `${process.env.PATH_ROUTE}/user/:_id`, makeExpressCallback(getUsers) ); // returns single user
+api.get( `${process.env.PATH_ROUTE}/ping`, (req, res) => res.send("You pinged the user microservice!") );
 
 module.exports = api;
