@@ -13,6 +13,9 @@ module.exports = {
       admin = {},
       friends = [],
       disabled = false,
+      phone = null,
+      subscription = "free",
+      photo = null
     } = {}) {
       const getAll = () => ({
         firstName,
@@ -27,6 +30,9 @@ module.exports = {
         friends,
         hash,
         salt,
+        phone,
+        subscription,
+        photo
       });
 
       Object.entries(getAll()).forEach(([key, value]) => {
@@ -60,6 +66,9 @@ module.exports = {
         getAdmin: () => admin,
         getFriends: () => friends,
         isDisabled: () => disabled,
+        getPhone: () => phone,
+        getSubscription: () => subscription,
+        getPhoto: () => photo,
         resetPassword: (password) => {
           const { passed, rule, reason } = validation.password(password);
           if (!passed)

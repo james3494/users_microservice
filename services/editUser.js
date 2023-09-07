@@ -1,5 +1,5 @@
 const { makeUser } = require('../entities');
-// to do: clean usersInfo so we don't accidentally set undefined stuff?
+
 module.exports = {
   makeEditUser ({ usersDb, throwError }) {
     return async function ({ ...userInfo }) {
@@ -31,6 +31,9 @@ module.exports = {
         groups: toEdit.getGroups(),
         friends: toEdit.getFriends(),
         admin: toEdit.getAdmin(),
+        photo: toEdit.getPhoto(),
+        phone: toEdit.getPhone(),
+        subscription: toEdit.getSubscription(),
         modifiedOn: Date.now(),
       });
     };

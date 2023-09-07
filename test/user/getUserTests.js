@@ -5,6 +5,8 @@ const returnFields = ({
   groups,
   friends,
   email,
+  phone,
+  photo
 }) => ({
   _id,
   firstName,
@@ -12,6 +14,8 @@ const returnFields = ({
   groups,
   friends,
   email,
+  phone,
+  photo
 });
 
 const data = require(`../data/1.js`);

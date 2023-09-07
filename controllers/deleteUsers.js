@@ -5,7 +5,7 @@ module.exports = {
         const { _id } = httpRequest.params;
         const loggedIn = getLoggedIn(httpRequest);
 
-        if (!loggedIn.admin?.super) {
+        if (!loggedIn.admin.super) {
           throwError({
             title: "You must be a superadmin to delete users.", 
             error: "user-insufficient-admin-rights", 

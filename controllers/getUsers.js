@@ -6,33 +6,35 @@ module.exports = {
     return async function (httpRequest) {
       const { ...filters } = httpRequest.query;
       const { _id } = httpRequest.params;
+      const loggedIn = getLoggedIn(httpRequest);
 
       let filterObj = {};
       if (_id) {
-        filterObj = { _id }
+        filterObj = { _id };
       } else filterObj = filters;
 
       const filtered = await filterUsers(filterObj);
-      let body = filtered.map(user => ({
+      let body = filtered.map((user) => ({
         _id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         groups: user.groups,
         friends: user.friends,
         email: user.email,
-      }))
+        phone: user.phone,
+        photo: user.photo,
+      }));
 
       if (_id) {
         if (body.length < 1) {
           throwError({
             status: 404,
             title: "User not found with specified id",
-            error: "user-not-found"
-          })
+            error: "user-not-found",
+          });
         }
         body = body[0];
       }
-
 
       return {
         headers: { "Content-Type": "application/json" },

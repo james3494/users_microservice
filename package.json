@@ -13,9 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "cuid": "^2.1.8",
-    "database": "https://james3494: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@github.com/james3494/database.git#87529b8",
-    "errorHandling": "https://james3494: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@github.com/james3494/errorHandling.git#bd5b77f",
-    "validation": "https://james3494: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@github.com/james3494/validation.git#2f5ed3b",
+    "database": "https://james3494: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@github.com/james3494/database.git",
+    "errorHandling": "https://james3494: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@github.com/james3494/errorHandling.git",
+    "validation": "https://james3494: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@github.com/james3494/validation.git",
     "dotenv": "^16.0.3",
     "express": "^4.18.2"
   },

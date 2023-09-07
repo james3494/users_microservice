@@ -14,6 +14,8 @@ const throwError = require('errorHandling').buildThrowError({ logErrors: process
 const getLoggedIn = (httpRequest) => {
   try {
     let loggedIn = JSON.parse(httpRequest.headers["X-Current-User"]) || {};
+    // if no _id the user is not logged in
+    if (!loggedIn._id) return null;    
     if (!loggedIn.admin) loggedIn.admin = {};
     return loggedIn;
   } catch (err) {

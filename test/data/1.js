@@ -13,6 +13,9 @@ module.exports = {
       friends: [],
       hash: "8b1d4912c21c8a2f8e537868fb6fcc5ae7010231e9e2fa8a23ae5aff2a7b50efd06c3a01bb9783f08bfbca1c995a8f17e2da63ae7f18e12d3bcf090321bfce498913670646b369fb1e3ad1307374d510c4eb7ae77a2a0a122673af64ddbd58b382c4e24f58e3f83e9ec1294bd10ebe07e51063f35c45e95f31400bf69ed74468",
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
+      phone: "+441234567890",
+      photo: null,
+      subscription: "free",
     },
     {
       _id: "clm67jm0o0009qiredarv678t",
@@ -27,6 +30,9 @@ module.exports = {
       friends: [],
       hash: "8b1d4912c21c8a2f8e537868fb6fcc5ae7010231e9e2fa8a23ae5aff2a7b50efd06c3a01bb9783f08bfbca1c995a8f17e2da63ae7f18e12d3bcf090321bfce498913670646b369fb1e3ad1307374d510c4eb7ae77a2a0a122673af64ddbd58b382c4e24f58e3f83e9ec1294bd10ebe07e51063f35c45e95f31400bf69ed74468",
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
+      phone: "+441234567890",
+      photo: null,
+      subscription: "free",
     },
     {
       _id: "clm67jlrk0005qire3wpf97tp",
@@ -41,6 +47,9 @@ module.exports = {
       friends: [],
       hash: "8b1d4912c21c8a2f8e537868fb6fcc5ae7010231e9e2fa8a23ae5aff2a7b50efd06c3a01bb9783f08bfbca1c995a8f17e2da63ae7f18e12d3bcf090321bfce498913670646b369fb1e3ad1307374d510c4eb7ae77a2a0a122673af64ddbd58b382c4e24f58e3f83e9ec1294bd10ebe07e51063f35c45e95f31400bf69ed74468",
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
+      phone: "+441234567890",
+      photo: null,
+      subscription: "free",
     },
     {
       _id: "clm3alfg20002ixre7tf5fmiw",
@@ -55,6 +64,9 @@ module.exports = {
       friends: [],
       hash: "8b1d4912c21c8a2f8e537868fb6fcc5ae7010231e9e2fa8a23ae5aff2a7b50efd06c3a01bb9783f08bfbca1c995a8f17e2da63ae7f18e12d3bcf090321bfce498913670646b369fb1e3ad1307374d510c4eb7ae77a2a0a122673af64ddbd58b382c4e24f58e3f83e9ec1294bd10ebe07e51063f35c45e95f31400bf69ed74468",
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
+      phone: "+441234567890",
+      photo: null,
+      subscription: "free",
     },
     {
       _id: "clm256k9w00003g5xafvyw4ld",
@@ -69,6 +81,9 @@ module.exports = {
       friends: [],
       hash: "8b1d4912c21c8a2f8e537868fb6fcc5ae7010231e9e2fa8a23ae5aff2a7b50efd06c3a01bb9783f08bfbca1c995a8f17e2da63ae7f18e12d3bcf090321bfce498913670646b369fb1e3ad1307374d510c4eb7ae77a2a0a122673af64ddbd58b382c4e24f58e3f83e9ec1294bd10ebe07e51063f35c45e95f31400bf69ed74468",
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
+      phone: "+441234567890",
+      photo: null,
+      subscription: "free",
     },
     {
       _id: "clm67jm0o0008qiregb2nda9j",
@@ -83,8 +98,9 @@ module.exports = {
       friends: [],
       hash: "8b1d4912c21c8a2f8e537868fb6fcc5ae7010231e9e2fa8a23ae5aff2a7b50efd06c3a01bb9783f08bfbca1c995a8f17e2da63ae7f18e12d3bcf090321bfce498913670646b369fb1e3ad1307374d510c4eb7ae77a2a0a122673af64ddbd58b382c4e24f58e3f83e9ec1294bd10ebe07e51063f35c45e95f31400bf69ed74468",
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
+      phone: "+441234567890",
+      photo: null,
+      subscription: "free",
     },
   ],
 };
-
-
