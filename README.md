@@ -5,8 +5,6 @@ A microservice for users associated with the Take Out app.
  - write documentation in order to clear up exactly what I'm after. This is long term and kind of covered by writing tests
 
  - salt and hash validation in /entities/hashMachine.js
- - way of sharing validation between front and back end
- - move out validation to a seperate module and have functions return something more useful
 
  - look into whether the correct headers are being used
 
@@ -17,6 +15,8 @@ A microservice for users associated with the Take Out app.
 - add phone number and profile pic to user entity
 
  - check the jwt is updated whenever groups, admin or friends are modified
+
+ - update testing to same structure as takeout microservice
 
  - extra endpoints:
     - 'getFullUser' endpoint which is accessible to admins

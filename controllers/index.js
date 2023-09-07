@@ -13,16 +13,19 @@ const throwError = require('errorHandling').buildThrowError({ logErrors: process
 
 const getLoggedIn = (httpRequest) => {
   try {
-    return JSON.parse(httpRequest.headers["X-Current-User"])
+    let loggedIn = JSON.parse(httpRequest.headers["X-Current-User"]) || {};
+    if (!loggedIn.admin) loggedIn.admin = {};
+    return loggedIn;
   } catch (err) {
     throwError({
       title: "invalid user header passed",
       status: 500,
       error: "auth-invalid-user-header",
-      detail: "A stringified object should be passed by the gateway to the microservice in a X-Current-User header"
-    })
+      detail:
+        "A stringified object should be passed by the gateway to the microservice in a X-Current-User header",
+    });
   }
-}
+};
 
 const userController = Object.freeze({
   postUsers : buildRegisterUser({ addUser }),
