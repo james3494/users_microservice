@@ -1,6 +1,4 @@
-.env.production
-.env.development
-.env.test
+.env.*
 node_modules/*
 private.pem
 public.pem
