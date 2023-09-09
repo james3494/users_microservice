@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 app.use(api);
 
 // final ditch error catch
-app.use((req, res, err) => catchError(err));
+app.use((req, res, err) => catchError(res, err));
 
 
 const server = app.listen(port, () => {
