@@ -1,4 +1,4 @@
-const cuid = require('cuid');
+const cuid = require('@paralleldrive/cuid2');
 
 const Id = Object.freeze({
   makeId: cuid,
