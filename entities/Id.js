@@ -1,8 +1,9 @@
-const cuid = require('@paralleldrive/cuid2');
+const { createId, isCuid } = require('@paralleldrive/cuid2');
+
 
 const Id = Object.freeze({
-  makeId: cuid,
-  isValidId: cuid.isCuid
+  makeId: createId,
+  isValidId: isCuid
 });
 
 module.exports = { Id };
