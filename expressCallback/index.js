@@ -1,11 +1,11 @@
 
 module.exports = {
-  buildMakeExpressCallback({ catchError }) {
+  buildMakeExpressCallback({ catchError, parseQuery }) {
     return  function (controller) {
       return (req, res) => {
         const httpRequest = {
           body: req.body,
-          query: req.query,
+          query: parseQuery(req.query),
           params: req.params,
           ip: req.ip,
           method: req.method,
