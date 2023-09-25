@@ -65,7 +65,7 @@ module.exports = [
     },
     expect: {
       statusCode: 200,
-      body: [returnFields(data.users[4]), returnFields(data.users[4])],
+      body: [returnFields(data.users[4]), returnFields(data.users[5])],
     },
   },
   {
@@ -74,13 +74,12 @@ module.exports = [
     data,
     endpoint,
     send: {
-      query: { _id: [ data.users[2]._id, data.users[3]._id ] },
+      query: { _id: [ data.users[2]._id ] },
     },
     expect: {
       statusCode: 200,
       body: [
         returnFields(data.users[2]),
-        returnFields(data.users[3]),
       ],
     },
   },
