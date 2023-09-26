@@ -4,7 +4,6 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
 const api = require ('./routes');
-const catchError = require('errorHandling').buildCatchError({ logErrors: process.env.LOG_ERRORS });
 
 
 // check api key
@@ -23,10 +22,13 @@ app.use((req, res, next) => {
 // all of the routes are implemented here
 app.use(api);
 
-// final ditch error catch
-app.use((req, res, err) => catchError(res, err));
-
-
+// the path wasn't found
+app.use((req, res) => res.status(404).send({
+  status: 404,
+  title: `Path not found`,
+  error: "user-microservice-path-not-found",
+  detail: `The path ${req.originalUrl} does not exist on this microservice`
+}));
 const server = app.listen(port, () => {
   console.log(`Users microservice listening on port ${port}`);
 });
