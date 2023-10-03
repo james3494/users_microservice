@@ -2,7 +2,7 @@
 module.exports = {
   buildEditUser ({ editUser, throwError, getLoggedIn }) {
     return async function (httpRequest) {
-      const { firstName, lastName } = httpRequest.body;
+      const { firstName, lastName, email, phone, photo } = httpRequest.body;
       const { _id } = httpRequest.params;
       const loggedIn = getLoggedIn(httpRequest);
 
@@ -26,6 +26,9 @@ module.exports = {
         _id,
         ...(firstName ? { firstName } : {}),
         ...(lastName ? { lastName } : {}),
+        ...(email ? { email } : {}),
+        ...(phone ? { phone } : {}),
+        ...(photo ? { photo } : {}),
       });
 
       return {
