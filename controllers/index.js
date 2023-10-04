@@ -4,9 +4,8 @@ const { buildRegisterUser } = require('./postUsers');
 const { buildLoginUser } = require('./postAuth');
 const { buildDisableUser } = require('./putDisabled');
 const { buildResetPassword } = require('./putPassword');
-const { buildEditUser } = require('./putUsers');
+const { buildEditUser } = require('./patchUsers');
 const { buildUserSearch } = require('./getUsers');
-const { buildEditAdminRights } = require('./putAdmin');
 const { buildDeleteUser } = require('./deleteUsers');
 
 const throwError = require('errorHandling').buildThrowError({ logErrors: process.env.LOG_ERRORS });
@@ -33,10 +32,9 @@ const userController = Object.freeze({
   postUsers : buildRegisterUser({ addUser }),
   putDisabled: buildDisableUser({ editUser, throwError, getLoggedIn }),
   getUsers: buildUserSearch({ filterUsers, throwError, getLoggedIn }),
-  putUsers: buildEditUser({ editUser, throwError, getLoggedIn }),
+  patchUsers: buildEditUser({ editUser, throwError, getLoggedIn }),
   putPassword: buildResetPassword({ resetPassword, throwError, getLoggedIn }),
   postAuth: buildLoginUser({ validateUser }),
-  putAdmin: buildEditAdminRights({ editUser, throwError, getLoggedIn }),
   deleteUsers: buildDeleteUser({ removeUser, getLoggedIn, throwError })
 });
 

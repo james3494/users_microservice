@@ -24,10 +24,9 @@ const {
   postUsers,
   postAuth,
   putDisabled,
-  putUsers,
+  patchUsers,
   getUsers,
   putPassword,
-  putAdmin,
   deleteUsers
 } = require('../controllers');
 
@@ -38,8 +37,7 @@ api.post( `${process.env.PATH_ROUTE}/user`, makeExpressCallback(postUsers) );
 api.delete( `${process.env.PATH_ROUTE}/user/:_id`, makeExpressCallback(deleteUsers) );
 api.put( `${process.env.PATH_ROUTE}/user/:_id/disabled`, makeExpressCallback(putDisabled) );
 api.put( `${process.env.PATH_ROUTE}/user/:_id/password`, makeExpressCallback(putPassword) );
-api.put( `${process.env.PATH_ROUTE}/user/:_id/admin`, makeExpressCallback(putAdmin) );
-api.put( `${process.env.PATH_ROUTE}/user/:_id`, makeExpressCallback(putUsers) );
+api.patch( `${process.env.PATH_ROUTE}/user/:_id`, makeExpressCallback(patchUsers) );
 api.get( `${process.env.PATH_ROUTE}/user`, makeExpressCallback(getUsers) ); // include search parameters, returns array
 api.get( `${process.env.PATH_ROUTE}/user/:_id`, makeExpressCallback(getUsers) ); // returns single user
 api.get( `${process.env.PATH_ROUTE}/ping`, (req, res) => res.send("You pinged the user microservice!") );
