@@ -4,12 +4,11 @@ const parseQuery = (query) => {
   if (query) {
     let newQuery = {};
     Object.entries(query).forEach(([key, value]) => {
-      newQuery[key] =
-        value === "true"
-          ? true
-          : value === "false"
-          ? false
-          : Number(value) || value;
+      try {
+        newQuery[key] = JSON.parse(value);
+      } catch {
+        newQuery[key] = value;
+      }
     });
     return newQuery;
   }
