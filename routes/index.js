@@ -29,7 +29,7 @@ const {
   deleteUsers
 } = require('../controllers');
 
-api.use(express.json());
+api.use(express.json({limit: '20mb'}));
 
 api.post( `${process.env.PATH_ROUTE}/auth`, makeExpressCallback(postAuth) );
 api.post( `${process.env.PATH_ROUTE}/user`, makeExpressCallback(postUsers) );
