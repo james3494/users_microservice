@@ -30,7 +30,7 @@ module.exports = {
       return {
         headers: { 'Content-Type': 'application/json' },
         status: 201,
-        body: { modifiedCount }
+        body: { modified: modifiedCount >= 1 },
       };
     };
   }
