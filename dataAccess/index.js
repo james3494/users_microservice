@@ -1,6 +1,6 @@
 
 const { makeUsersDb } = require('./usersDb');
-const { makeDb, buildGeneralDb } = require('database');
+const { makeDb, buildGeneralDb } = require('../database');
 
 const usersDb = makeUsersDb({ makeDb, buildGeneralDb });
 

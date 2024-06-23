@@ -1,5 +1,5 @@
 const { buildMakeExpressCallback } = require('../expressCallback/index');
-const catchError = require('errorHandling').buildCatchError({ logErrors: process.env.LOG_ERRORS });
+const catchError = require('../errorHandling').buildCatchError({ logErrors: process.env.LOG_ERRORS });
 const parseQuery = (query) => {
   if (query) {
     let newQuery = {};

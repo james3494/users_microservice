@@ -8,7 +8,7 @@ const { buildEditUser } = require('./patchUsers');
 const { buildUserSearch } = require('./getUsers');
 const { buildDeleteUser } = require('./deleteUsers');
 
-const throwError = require('errorHandling').buildThrowError({ logErrors: process.env.LOG_ERRORS });
+const throwError = require('../errorHandling').buildThrowError({ logErrors: process.env.LOG_ERRORS });
 
 const getLoggedIn = (httpRequest) => {
   try {

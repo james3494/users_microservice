@@ -1,5 +1,5 @@
 module.exports = {
-  buildMakeUser({ Id, hashMachine, throwError, isValidEmail, validation }) {
+  buildMakeUser({ Id, hashMachine, throwError, validation }) {
     return function ({
       email,
       firstName,
