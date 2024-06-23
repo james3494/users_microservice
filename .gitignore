@@ -1,5 +1,5 @@
-.env.test
-.env.production
+.env*
+!.env.template
 node_modules/*
 private.pem
 public.pem
