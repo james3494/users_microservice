@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha -r dotenv/config",
-    "start": "NODE_ENV=development nodemon server.js",
-    "start-prod": "NODE_ENV=production node server.js",
+    "test": "mocha -r dotenv/config",
+    "dev": "nodemon server.js",
+    "start": "node server.js",
     "lint": "eslint ./ --ignore-pattern ./node_modules"
   },
   "author": "",
