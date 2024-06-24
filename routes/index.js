@@ -1,21 +1,7 @@
-const { buildMakeExpressCallback } = require('../expressCallback/index');
+const { buildMakeExpressCallback } = require('../expressCallback');
 const catchError = require('../errorHandling').buildCatchError({ logErrors: process.env.LOG_ERRORS });
-const parseQuery = (query) => {
-  if (query) {
-    let newQuery = {};
-    Object.entries(query).forEach(([key, value]) => {
-      try {
-        newQuery[key] = JSON.parse(value);
-      } catch {
-        newQuery[key] = value;
-      }
-    });
-    return newQuery;
-  }
-};
 
-
-const makeExpressCallback = buildMakeExpressCallback({ catchError, parseQuery })
+const makeExpressCallback = buildMakeExpressCallback({ catchError })
 
 const express = require('express');
 const api = express.Router();
