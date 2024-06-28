@@ -15,7 +15,6 @@ module.exports = {
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
       phone: "+441234567890",
       photo: null,
-      subscription: "free",
     },
     {
       _id: "clm67jm0o0009qiredarv678t",
@@ -32,7 +31,6 @@ module.exports = {
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
       phone: "+441234567890",
       photo: null,
-      subscription: "free",
     },
     {
       _id: "clm67jlrk0005qire3wpf97tp",
@@ -49,7 +47,6 @@ module.exports = {
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
       phone: "+441234567890",
       photo: null,
-      subscription: "free",
     },
     {
       _id: "clm3alfg20002ixre7tf5fmiw",
@@ -66,7 +63,6 @@ module.exports = {
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
       phone: "+441234567890",
       photo: null,
-      subscription: "free",
     },
     {
       _id: "clm256k9w00003g5xafvyw4ld",
@@ -83,7 +79,6 @@ module.exports = {
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
       phone: "+441234567890",
       photo: null,
-      subscription: "free",
     },
     {
       _id: "clm67jm0o0008qiregb2nda9j",
@@ -100,7 +95,6 @@ module.exports = {
       salt: "ezNPEcoVFHuHzuE+Ckm0E4HuYu168JCA",
       phone: "+441234567890",
       photo: null,
-      subscription: "free",
     },
   ],
 };

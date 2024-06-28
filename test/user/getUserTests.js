@@ -3,14 +3,12 @@ const returnFields = ({
   firstName,
   lastName,
   friends,
-  subscription,
   photo
 }) => ({
   _id,
   firstName,
   lastName,
   friends,
-  subscription,
   photo
 });
 

@@ -21,7 +21,6 @@ module.exports = {
         lastName: user.lastName,
         photo: user.photo,
         friends: user.friends,
-        subscription: user.subscription,
         ...(loggedInIsAdmin || loggedIn?._id === user._id
           ? { groups: user.groups }
           : {}),

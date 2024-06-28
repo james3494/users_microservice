@@ -15,7 +15,6 @@ module.exports = {
         salt: "OXO10AgQy7vid5auNQxX+ThMlhO+0JGp",
         phone: "+441234567890",
         photo: null,
-        subscription: "free",
       },
       {
         _id: "clm256k9w00003g5xafvyw4ld",
@@ -32,7 +31,6 @@ module.exports = {
         salt: "OXO10AgQy7vid5auNQxX+ThMlhO+0JGp",
         phone: "+441234567890",
         photo: null,
-        subscription: "free",
       },
     ],
   };

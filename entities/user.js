@@ -14,7 +14,6 @@ module.exports = {
       friends = [],
       disabled = false,
       phone = null,
-      subscription = "free",
       photo = null
     } = {}) {
       const getAll = () => ({
@@ -31,7 +30,6 @@ module.exports = {
         hash,
         salt,
         phone,
-        subscription,
         photo
       });
 
@@ -67,7 +65,6 @@ module.exports = {
         getFriends: () => friends,
         isDisabled: () => disabled,
         getPhone: () => phone,
-        getSubscription: () => subscription,
         getPhoto: () => photo,
         resetPassword: (password) => {
           const { passed, rule, reason } = validation.password(password);

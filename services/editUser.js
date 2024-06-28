@@ -45,7 +45,6 @@ module.exports = {
         admin: toEdit.getAdmin(),
         photo: toEdit.getPhoto(),
         phone: toEdit.getPhone(),
-        subscription: toEdit.getSubscription(),
         modifiedOn: Date.now(),
       });
     };
