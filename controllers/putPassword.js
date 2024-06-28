@@ -1,10 +1,10 @@
 
 module.exports = {
-  buildResetPassword ({ resetPassword, throwError, getLoggedIn }) {
+  buildResetPassword ({ resetPassword, throwError }) {
     return async function (httpRequest) {
       const { oldPassword, newPassword } = httpRequest.body;
       const { _id } = httpRequest.params;
-      const loggedIn = getLoggedIn(httpRequest);
+      const loggedIn = httpRequest.user;
 
       if (!loggedIn) {
         throwError({

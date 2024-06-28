@@ -1,10 +1,10 @@
 
 module.exports = {
-  buildDisableUser ({ editUser, throwError, getLoggedIn }) {
+  buildDisableUser ({ editUser, throwError }) {
     return async function (httpRequest) {
       const { _id } = httpRequest.params;
       const { disabled } = httpRequest.body;
-      const loggedIn = getLoggedIn(httpRequest);
+      const loggedIn = httpRequest.user;
 
       if (!loggedIn) {
         throwError({

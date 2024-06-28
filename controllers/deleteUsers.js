@@ -1,11 +1,10 @@
 
 module.exports = {
-    buildDeleteUser ({ removeUser, getLoggedIn, throwError }) {
+    buildDeleteUser ({ removeUser, throwError }) {
       return async function (httpRequest) {
         const { _id } = httpRequest.params;
-        const loggedIn = getLoggedIn(httpRequest);
 
-        if (!loggedIn.admin.super) {
+        if (!httpRequest.user?.admin?.super) {
           throwError({
             title: "You must be a superadmin to delete users.", 
             error: "user-insufficient-admin-rights", 

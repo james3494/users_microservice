@@ -1,10 +1,10 @@
 module.exports = {
-  buildEditUser({ editUser, throwError, getLoggedIn }) {
+  buildEditUser({ editUser, throwError }) {
     return async function (httpRequest) {
       const { firstName, lastName, email, phone, photo, admin } =
         httpRequest.body;
       const { _id } = httpRequest.params;
-      const loggedIn = getLoggedIn(httpRequest);
+      const loggedIn = httpRequest.user;
 
       if (!loggedIn) {
         throwError({

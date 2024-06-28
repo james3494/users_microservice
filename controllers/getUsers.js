@@ -1,10 +1,10 @@
 
 module.exports = {
-  buildUserSearch({ filterUsers, throwError, getLoggedIn }) {
+  buildUserSearch({ filterUsers, throwError }) {
     return async function (httpRequest) {
       const { ...filters } = httpRequest.query;
       const { _id } = httpRequest.params;
-      const loggedIn = getLoggedIn(httpRequest);
+      const loggedIn = httpRequest.user;
 
       let filterObj = {};
       if (_id) {
