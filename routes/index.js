@@ -1,8 +1,7 @@
 const { buildMakeExpressCallback } = require('../expressCallback');
 const catchError = require('../errorHandling').buildCatchError({ logErrors: process.env.LOG_ERRORS });
-const throwError = require('../errorHandling').buildThrowError({ logErrors: process.env.LOG_ERRORS });
 
-const makeExpressCallback = buildMakeExpressCallback({ catchError, throwError })
+const makeExpressCallback = buildMakeExpressCallback({ catchError })
 
 const express = require('express');
 const api = express.Router();
