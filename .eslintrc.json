@@ -31,7 +31,7 @@
     "array-bracket-spacing": ["error", "always"],
     "node/no-unsupported-features/es-syntax": ["error", {
       "version": ">=20.0.0",
-      "ignores": []
+      "ignores": ["modules"]
     }]
 }, 
 "globals": {
