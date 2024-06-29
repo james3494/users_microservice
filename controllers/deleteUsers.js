@@ -11,12 +11,18 @@ module.exports = {
                     status: 403
                 });
             }
-            const { deletedId } = await removeUser({ _id });
+            const { deletedId } = await removeUser({
+                _id 
+            });
         
             return {
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json" 
+                },
                 status: 200,
-                body: { deletedId }
+                body: {
+                    deletedId 
+                }
             };
         };
     }

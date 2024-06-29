@@ -5,14 +5,28 @@ const { makeResetPassword } = require("./resetPassword");
 const { makeValidateUser } = require("./validateUser");
 const { makeFilterUsers } = require("./filterUsers");
 const { usersDb } = require("../dataAccess");
-const throwError = require("../errorHandling").buildThrowError({ logErrors: process.env.LOG_ERRORS });
+const throwError = require("../errorHandling").buildThrowError({
+    logErrors: process.env.LOG_ERRORS 
+});
 
-const addUser = makeAddUser({ usersDb, throwError });
-const editUser = makeEditUser({ usersDb, throwError });
-const validateUser = makeValidateUser({ usersDb, throwError });
-const filterUsers = makeFilterUsers({ usersDb, throwError });
-const resetPassword = makeResetPassword({ usersDb, throwError });
-const removeUser = makeRemoveUser({ usersDb, throwError });
+const addUser = makeAddUser({
+    usersDb, throwError 
+});
+const editUser = makeEditUser({
+    usersDb, throwError 
+});
+const validateUser = makeValidateUser({
+    usersDb, throwError 
+});
+const filterUsers = makeFilterUsers({
+    usersDb, throwError 
+});
+const resetPassword = makeResetPassword({
+    usersDb, throwError 
+});
+const removeUser = makeRemoveUser({
+    usersDb, throwError 
+});
 
 const userService = Object.freeze({
     addUser,
@@ -23,4 +37,6 @@ const userService = Object.freeze({
     removeUser
 });
 
-module.exports = { ...userService };
+module.exports = {
+    ...userService 
+};

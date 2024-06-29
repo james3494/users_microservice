@@ -23,5 +23,5 @@ const hashMachine = Object.freeze({
 });
 
 module.exports = {
-    hashMachine
+    hashMachine 
 };

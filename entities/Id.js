@@ -6,4 +6,6 @@ const Id = Object.freeze({
     isValidId: isCuid
 });
 
-module.exports = { Id };
+module.exports = {
+    Id 
+};

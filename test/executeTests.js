@@ -1,9 +1,9 @@
-const request = require("supertest");
-const { app } = require("../server.js");
-const populateDb = require("./populateDb.js");
+import request from "supertest";
+import { app } from "../server.js";
+import populateDb from "./populateDb.js";
 
-const deepEqualInAnyOrder = require("deep-equal-in-any-order");
-const chai = require("chai");
+import deepEqualInAnyOrder from "deep-equal-in-any-order";
+import chai from "chai";
 chai.use(deepEqualInAnyOrder);
 const { expect } = chai;
 
@@ -13,7 +13,7 @@ const checkBody = (testBody, resBody) => {
     if (typeof testBody === "function") {
         expect(testBody(resBody)).to.be.equal(true);
     } else {
-        Object.entries(testBody || {}).forEach(([key, value]) => {
+        Object.entries(testBody || {}).forEach(([ key, value ]) => {
             if (typeof value === "object") {
                 expect(resBody[key]).to.deep.equalInAnyOrder(value);
             } else {
@@ -62,6 +62,6 @@ const executeTest = (test) => {
     }).timeout(2000);
 };
 
-module.exports = (tests) => {
+export default (tests) => {
     tests.forEach((test) => executeTest(test));
 };

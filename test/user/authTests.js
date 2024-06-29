@@ -12,7 +12,9 @@ module.exports = [
         data,
         endpoint,
         send: {
-            body: { email }
+            body: {
+                email 
+            } 
         },
         expect: {
             statusCode: 400,
@@ -28,7 +30,9 @@ module.exports = [
         data,
         endpoint,
         send: {
-            body: { password }
+            body: {
+                password 
+            } 
         },
         expect: {
             statusCode: 400,
@@ -44,7 +48,9 @@ module.exports = [
         data,
         endpoint,
         send: {
-            body: { email: "thisemail@doesntexist.com", password }
+            body: {
+                email: "thisemail@doesntexist.com", password 
+            } 
         },
         expect: {
             statusCode: 404,
@@ -60,7 +66,9 @@ module.exports = [
         data,
         endpoint,
         send: {
-            body: { email, password: "wrongpass" }
+            body: {
+                email, password: "wrongpass" 
+            } 
         },
         expect: {
             statusCode: 401,
@@ -76,7 +84,9 @@ module.exports = [
         data,
         endpoint,
         send: {
-            body: { email: "test5@test.com", password }
+            body: {
+                email: "test5@test.com", password 
+            } 
         },
         expect: {
             statusCode: 403,
@@ -93,7 +103,9 @@ module.exports = [
         data,
         endpoint,
         send: {
-            body: { email, password }
+            body: {
+                email, password 
+            } 
         },
         expect: {
             statusCode: 200,

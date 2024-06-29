@@ -33,11 +33,13 @@ module.exports = [
         data,
         endpoint,
         send: {
-            query: { firstName: "Test" }
+            query: {
+                firstName: "Test" 
+            } 
         },
         expect: {
             statusCode: 200,
-            body: [returnFields(data.users[0])]
+            body: [ returnFields(data.users[0]) ]
         }
     },
     {
@@ -46,11 +48,13 @@ module.exports = [
         data,
         endpoint,
         send: {
-            query: { lastName: "face" }
+            query: {
+                lastName: "face" 
+            } 
         },
         expect: {
             statusCode: 200,
-            body: [returnFields(data.users[0]), returnFields(data.users[1])]
+            body: [ returnFields(data.users[0]), returnFields(data.users[1]) ]
         }
     },
     {
@@ -59,11 +63,13 @@ module.exports = [
         data,
         endpoint,
         send: {
-            query: { disabled: true }
+            query: {
+                disabled: true 
+            } 
         },
         expect: {
             statusCode: 200,
-            body: [returnFields(data.users[4]), returnFields(data.users[5])]
+            body: [ returnFields(data.users[4]), returnFields(data.users[5]) ]
         }
     },
     {
@@ -72,7 +78,9 @@ module.exports = [
         data,
         endpoint,
         send: {
-            query: { _id: [ data.users[2]._id ] }
+            query: {
+                _id: [ data.users[2]._id ] 
+            } 
         },
         expect: {
             statusCode: 200,
@@ -87,11 +95,13 @@ module.exports = [
         data,
         endpoint,
         send: {
-            query: { firstName: "Bob", lastName: "face" }
+            query: {
+                firstName: "Bob", lastName: "face" 
+            } 
         },
         expect: {
             statusCode: 200,
-            body: [returnFields(data.users[1])]
+            body: [ returnFields(data.users[1]) ]
         }
     }
 ];

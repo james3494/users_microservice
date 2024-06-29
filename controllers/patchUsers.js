@@ -33,18 +33,34 @@ module.exports = {
 
             const { modifiedCount } = await editUser({
                 _id,
-                ...(firstName ? { firstName } : {}),
-                ...(lastName ? { lastName } : {}),
-                ...(email ? { email } : {}),
-                ...(phone ? { phone } : {}),
-                ...(photo ? { photo } : {}),
-                ...(admin ? { admin } : {})
+                ...(firstName ? {
+                    firstName 
+                } : {}),
+                ...(lastName ? {
+                    lastName 
+                } : {}),
+                ...(email ? {
+                    email 
+                } : {}),
+                ...(phone ? {
+                    phone 
+                } : {}),
+                ...(photo ? {
+                    photo 
+                } : {}),
+                ...(admin ? {
+                    admin 
+                } : {})
             });
 
             return {
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json" 
+                },
                 status: 201,
-                body: { modifiedCount, success: true }
+                body: {
+                    modifiedCount, success: true 
+                }
             };
         };
     }

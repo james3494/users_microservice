@@ -1,14 +1,18 @@
 {
   "env": {
-    "browser": true,
-    "commonjs": true,
+    "node": true,
     "es2021": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:node/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
-
 "rules": {
     "indent": ["error", 4],
     "linebreak-style": ["error", "unix"],
@@ -19,12 +23,23 @@
     "eqeqeq": ["error", "always"],
     "curly": "error",
     "brace-style": ["error", "1tbs"],
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "never"],
+    "max-len": ["error", { "code": 120 }],
+    "object-curly-newline": ["error", { "ObjectExpression": { "multiline": true, "minProperties": 1 } }],
+    "object-curly-spacing": ["error", "always"],
+    "space-in-parens": ["error", "never"],
+    "array-bracket-spacing": ["error", "always"],
+    "node/no-unsupported-features/es-syntax": ["error", {
+      "version": ">=20.0.0",
+      "ignores": []
+    }]
 }, 
 "globals": {
     "__dirname": "readonly",
     "process": "readonly",
     "describe": "readonly",
     "it": "readonly"
-  }
+  },
+  "plugins": ["import"]
+
 }

@@ -8,16 +8,34 @@ const { buildEditUser } = require("./patchUsers");
 const { buildUserSearch } = require("./getUsers");
 const { buildDeleteUser } = require("./deleteUsers");
 
-const throwError = require("../errorHandling").buildThrowError({ logErrors: process.env.LOG_ERRORS });
-
-const userController = Object.freeze({
-    postUsers : buildRegisterUser({ addUser }),
-    putDisabled: buildDisableUser({ editUser, throwError }),
-    getUsers: buildUserSearch({ filterUsers, throwError }),
-    patchUsers: buildEditUser({ editUser, throwError }),
-    putPassword: buildResetPassword({ resetPassword, throwError }),
-    postAuth: buildLoginUser({ validateUser }),
-    deleteUsers: buildDeleteUser({ removeUser, throwError })
+const throwError = require("../errorHandling").buildThrowError({
+    logErrors: process.env.LOG_ERRORS 
 });
 
-module.exports = { ...userController };
+const userController = Object.freeze({
+    postUsers : buildRegisterUser({
+        addUser 
+    }),
+    putDisabled: buildDisableUser({
+        editUser, throwError 
+    }),
+    getUsers: buildUserSearch({
+        filterUsers, throwError 
+    }),
+    patchUsers: buildEditUser({
+        editUser, throwError 
+    }),
+    putPassword: buildResetPassword({
+        resetPassword, throwError 
+    }),
+    postAuth: buildLoginUser({
+        validateUser 
+    }),
+    deleteUsers: buildDeleteUser({
+        removeUser, throwError 
+    })
+});
+
+module.exports = {
+    ...userController 
+};

@@ -20,7 +20,7 @@ module.exports = {
             (usersFromDb || []).forEach(userInfo => {
                 try {
                     const user = makeUser(userInfo);
-                    usersRtn.push( user.getAll() );
+                    usersRtn.push(user.getAll());
                 } catch (e) {
                     console.log(e);
                 }

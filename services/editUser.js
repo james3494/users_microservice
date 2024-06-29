@@ -11,7 +11,9 @@ module.exports = {
                 });
             }
 
-            const user = await usersDb.findById({ _id: userInfo._id });
+            const user = await usersDb.findById({
+                _id: userInfo._id 
+            });
             if (!user) {
                 throwError({ 
                     title: "No user found to edit.", 
@@ -21,7 +23,9 @@ module.exports = {
                 });
             }
             if (userInfo.email && userInfo.email !== user.email) {
-                const exists = await usersDb.findByEmail({ email: userInfo.email });
+                const exists = await usersDb.findByEmail({
+                    email: userInfo.email 
+                });
                 if (exists) {
                     throwError({
                         title: "User already exists with that email", 
@@ -32,7 +36,9 @@ module.exports = {
                 }
             }
 
-            const toEdit = makeUser({ ...user, ...userInfo });
+            const toEdit = makeUser({
+                ...user, ...userInfo 
+            });
 
             return await usersDb.update({
                 _id: toEdit.getId(),

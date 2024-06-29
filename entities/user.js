@@ -33,7 +33,7 @@ module.exports = {
                 photo
             });
 
-            Object.entries(getAll()).forEach(([key, value]) => {
+            Object.entries(getAll()).forEach(([ key, value ]) => {
                 if (!validation[key]) {
                     throwError({
                         status: 500,
@@ -81,7 +81,7 @@ module.exports = {
                     hash = hashMachine.hash(password, salt);
                 },
                 isCorrectPassword: (password) => {
-                    return hashMachine.hash(password, salt) == hash;
+                    return hashMachine.hash(password, salt) === hash;
                 },
                 getAll
             });

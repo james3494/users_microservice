@@ -2,7 +2,9 @@
 const data = require("../data/1.js");
 const loggedInUser = {
     _id: "clm256k9w00003g5xafvyw4ld", // stub
-    admin: { super: true }
+    admin: {
+        super: true 
+    }
 };
 const method = "delete";
 
@@ -15,7 +17,9 @@ module.exports = [
         endpoint: `user/${data.users[0]._id}`,
         method,
         send: {
-            loggedInUser: { ...loggedInUser, admin: {} }
+            loggedInUser: {
+                ...loggedInUser, admin: {} 
+            } 
         },
         expect: {
             statusCode: 403,
@@ -30,10 +34,14 @@ module.exports = [
         data,
         endpoint: `user/${data.users[0]._id}`,
         method,
-        send: { loggedInUser },
+        send: {
+            loggedInUser 
+        },
         expect: {
             statusCode: 200,
-            body: { deletedId: data.users[0]._id }
+            body: {
+                deletedId: data.users[0]._id 
+            }
         }
     },
     {
@@ -41,7 +49,9 @@ module.exports = [
         data,
         endpoint: "user/thisidisnotinthedata",
         method,
-        send: { loggedInUser },
+        send: {
+            loggedInUser 
+        },
         expect: {
             statusCode: 404,
             body: { 

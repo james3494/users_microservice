@@ -28,9 +28,13 @@ module.exports = {
             });
 
             return {
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json" 
+                },
                 status: 201,
-                body: { modified: modifiedCount >= 1 }
+                body: {
+                    modified: modifiedCount >= 1 
+                }
             };
         };
     }

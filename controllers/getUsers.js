@@ -8,7 +8,9 @@ module.exports = {
 
             let filterObj = {};
             if (_id) {
-                filterObj = { _id };
+                filterObj = {
+                    _id 
+                };
             } else {
                 filterObj = filters;
             }
@@ -24,18 +26,32 @@ module.exports = {
                 photo: user.photo,
                 friends: user.friends,
                 ...(loggedInIsAdmin || loggedIn?._id === user._id
-                    ? { groups: user.groups }
+                    ? {
+                        groups: user.groups 
+                    }
                     : {}),
                 ...(loggedInIsAdmin || loggedIn?._id === user._id
-                    ? { email: user.email }
+                    ? {
+                        email: user.email 
+                    }
                     : {}),
                 ...(loggedInIsAdmin || loggedIn?._id === user._id
-                    ? { phone: user.phone }
+                    ? {
+                        phone: user.phone 
+                    }
                     : {}),
-                ...(loggedInIsAdmin ? { admin: user.admin } : {}),
-                ...(loggedInIsAdmin ? { createdOn: user.createdOn } : {}),
-                ...(loggedInIsAdmin ? { modifiedOn: user.modifiedOn } : {}),
-                ...(loggedInIsAdmin ? { disabled: user.disabled } : {})
+                ...(loggedInIsAdmin ? {
+                    admin: user.admin 
+                } : {}),
+                ...(loggedInIsAdmin ? {
+                    createdOn: user.createdOn 
+                } : {}),
+                ...(loggedInIsAdmin ? {
+                    modifiedOn: user.modifiedOn 
+                } : {}),
+                ...(loggedInIsAdmin ? {
+                    disabled: user.disabled 
+                } : {})
             }));
 
             if (_id) {
@@ -50,7 +66,9 @@ module.exports = {
             }
 
             return {
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json" 
+                },
                 status: 200,
                 body
             };

@@ -2,7 +2,7 @@
 const endpoint = "user";
 const method = "post";
 const data = {
-    users: []
+    users: [] 
 };
 
 
@@ -114,7 +114,9 @@ module.exports = [
         should: "should return an error for the user already existing",
         endpoint,
         method,
-        data: { users: [ testUser ]},
+        data: {
+            users: [ testUser ] 
+        },
         send: {
             body: {
                 ...testUser,
@@ -134,10 +136,14 @@ module.exports = [
         endpoint,
         method,
         data,
-        send: { body: testUser },
+        send: {
+            body: testUser 
+        },
         expected: {
             statusCode: 201,
-            body: { insertedId: testUser._id }
+            body: {
+                insertedId: testUser._id 
+            }
         }
     }
 

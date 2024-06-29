@@ -27,7 +27,9 @@ module.exports = {
             });
 
             return {
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json" 
+                },
                 status: 201
             };
         };

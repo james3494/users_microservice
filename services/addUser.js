@@ -4,7 +4,9 @@ module.exports = {
     makeAddUser ({ usersDb, throwError }) {
         return async function (userInfo) {
             const user = makeUser(userInfo);
-            const exists = await usersDb.findByEmail({ email: user.getEmail() });
+            const exists = await usersDb.findByEmail({
+                email: user.getEmail() 
+            });
             if (exists) {
                 throwError({
                     title: "User already exists with that email", 
@@ -18,7 +20,7 @@ module.exports = {
             }
 
             return await usersDb.insert({
-                ... user.getAll()
+                ... user.getAll() 
             });
         };
     }

@@ -11,7 +11,9 @@ module.exports = {
                 });
             }
 
-            const userJson = await usersDb.findById({ _id });
+            const userJson = await usersDb.findById({
+                _id 
+            });
             if (!userJson) {
                 throwError({
                     title: "No user found.", 

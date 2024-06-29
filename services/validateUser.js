@@ -19,7 +19,9 @@ module.exports = {
                     error: "user-invalid-password"
                 });
             }
-            const exists = await usersDb.findByEmail({ email });
+            const exists = await usersDb.findByEmail({
+                email 
+            });
             if (!exists) {
                 throwError({
                     title: "No user found with that email", 
@@ -30,7 +32,7 @@ module.exports = {
 
             const userFromDb = makeUser(exists);
 
-            if (userFromDb.isDisabled() == true) {
+            if (userFromDb.isDisabled() === true) {
                 throwError({
                     title: "User has been disabled", 
                     error: "user-is-disabled", 

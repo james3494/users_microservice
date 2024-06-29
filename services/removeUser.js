@@ -3,7 +3,9 @@ const { makeUser } = require("../entities");
 module.exports = {
     makeRemoveUser ({ usersDb, throwError }) {
         return async function ({ _id }) {
-            const existingUser = await usersDb.findById({ _id });
+            const existingUser = await usersDb.findById({
+                _id 
+            });
 
             if (!existingUser) {
                 throwError({ 
@@ -15,7 +17,7 @@ module.exports = {
             }
             const user = makeUser(existingUser);
             const { deletedCount } = await usersDb.remove({
-                _id: user.getId()
+                _id: user.getId() 
             });
 
             if (deletedCount < 1) {
@@ -26,7 +28,9 @@ module.exports = {
                     detail: "The database responded with a deleted count <1"
                 });
             }
-            return { deletedCount, deletedId: _id };
+            return {
+                deletedCount, deletedId: _id 
+            };
 
         };
     }

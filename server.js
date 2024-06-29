@@ -1,4 +1,6 @@
-require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
+require("dotenv").config({
+    path: `.env.${process.env.NODE_ENV}` 
+});
 
 const express = require("express");
 const app = express();
@@ -35,4 +37,6 @@ const server = app.listen(port, () => {
     console.log(`Users microservice listening on port ${port}`);
 });
 
-module.exports = { server, app };
+module.exports = {
+    server, app 
+};
