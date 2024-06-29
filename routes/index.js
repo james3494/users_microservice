@@ -1,21 +1,21 @@
-const { buildMakeExpressCallback } = require('../expressCallback');
-const catchError = require('../errorHandling').buildCatchError({ logErrors: process.env.LOG_ERRORS });
+const { buildMakeExpressCallback } = require("../expressCallback");
+const catchError = require("../errorHandling").buildCatchError({ logErrors: process.env.LOG_ERRORS });
 
-const makeExpressCallback = buildMakeExpressCallback({ catchError })
+const makeExpressCallback = buildMakeExpressCallback({ catchError });
 
-const express = require('express');
+const express = require("express");
 const api = express.Router();
 const {
-  postUsers,
-  postAuth,
-  putDisabled,
-  patchUsers,
-  getUsers,
-  putPassword,
-  deleteUsers
-} = require('../controllers');
+    postUsers,
+    postAuth,
+    putDisabled,
+    patchUsers,
+    getUsers,
+    putPassword,
+    deleteUsers
+} = require("../controllers");
 
-api.use(express.json({limit: '20mb'}));
+api.use(express.json({limit: "20mb"}));
 
 api.post( `${process.env.PATH_ROUTE}/auth`, makeExpressCallback(postAuth) );
 api.post( `${process.env.PATH_ROUTE}/user`, makeExpressCallback(postUsers) );

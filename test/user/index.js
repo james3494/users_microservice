@@ -12,4 +12,4 @@ module.exports = () => {
     describe("GET /user", () => executeTests(getUserTests));
     describe("DELETE /user", () => executeTests(deleteUserTests));
     describe("POST /auth", () => executeTests(authTests));
-}
+};

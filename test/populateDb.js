@@ -14,17 +14,25 @@ data = {
 
 */
 
-const { usersDb } = require('../dataAccess');
+const { usersDb } = require("../dataAccess");
 
 
 module.exports = async (data) => {
-    if (!data) return;
-    if (typeof data === 'number') data = require(`./data/${data}.js`)
+    if (!data) {
+        return;
+    }
+    if (typeof data === "number") {
+        data = require(`./data/${data}.js`);
+    }
     
-    if (typeof data !== 'object') throw Error("invalid test data structure")
+    if (typeof data !== "object") {
+        throw Error("invalid test data structure");
+    }
 
     if (data.users) {
-        await usersDb.removeAll()
-        if (data.users.length) await usersDb.insertMany(data.users)
+        await usersDb.removeAll();
+        if (data.users.length) {
+            await usersDb.insertMany(data.users);
+        }
     }
-}
+};

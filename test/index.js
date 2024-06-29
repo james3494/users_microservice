@@ -4,6 +4,6 @@ const doPingTests = require("./ping");
 
 describe("Testing user microservice", () => {
 
-  doPingTests();
-  doUserTests();
+    doPingTests();
+    doUserTests();
 });

@@ -8,8 +8,20 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "rules": {},
-  "globals": {
+
+"rules": {
+    "indent": ["error", 4],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "no-console": "off",
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "eqeqeq": ["error", "always"],
+    "curly": "error",
+    "brace-style": ["error", "1tbs"],
+    "comma-dangle": ["error", "never"]
+}, 
+"globals": {
     "__dirname": "readonly",
     "process": "readonly",
     "describe": "readonly",
